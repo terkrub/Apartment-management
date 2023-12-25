@@ -1,0 +1,49 @@
+.StatusContainer{
+
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.incomeStat, .enpenseStat, .profitStat, .AvaRoomStat, .maintainStat{
+    background-color: #fff;
+    width: 15%;
+    height: 50%;
+    border-radius: 10%;
+    margin: 2%;
+    padding: 1%;
+    box-shadow: 0px 0px 4px 2px #B7BBC033;
+    display: flex;
+    align-items: center;
+}
+
+.incomeStat div, .enpenseStat div, .profitStat div, .AvaRoomStat div, .maintainStat div{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10%;
+}
+
+.incomeStat div span, .enpenseStat div span, .profitStat div span, .AvaRoomStat div span, .maintainStat div span{
+    font-size: 2vh;
+}
+
+.incomeStat div a, .enpenseStat div a, .profitStat div a, .AvaRoomStat div a, .maintainStat div a{
+    font-size: 2.5vh;
+}
+
+.incomeStat div span{
+    color: #2AEA82;
+}
+.enpenseStat div span{
+    color: #FF5252;
+}
+.profitStat div span{
+    color: #01BFFB;
+}
+.AvaRoomStat div span{
+    color: #8bbece;
+}
+
+.maintainStat div span{
+    color: #4F758A;
+}
