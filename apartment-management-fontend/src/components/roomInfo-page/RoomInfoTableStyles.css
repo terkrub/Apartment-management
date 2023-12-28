@@ -1,0 +1,105 @@
+
+.tableContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow:auto;
+    height: 70%;
+}
+.tableContainer table {
+    width: 90%;
+    
+    border-collapse: collapse;
+    margin-bottom: 1%;
+}
+  
+.tableContainer  th {
+    background-color: #404040;
+    color: white;
+    padding: 10px;
+    border: 1px solid #5B5B5B;
+    text-align: left;
+}
+  
+
+.tableContainer td {
+    padding: 10px;
+    border: 1px solid #5B5B5B;
+    background-color: #363636;
+    color: white;
+}
+  
+
+.tableContainer .editBtn {
+    background-color: #FF5252;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.successBtn{
+  background-color: #1b8a05;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.progressBtn{
+  background-color: #1e27a7;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.pagination button{
+    background-color: #404040;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+  
+
+.tableContainer button:disabled {
+    background-color: #999; 
+}
+  
+
+.tableContainer .pagination {
+    text-align: center;
+}
+  
+
+.tableContainer button:hover:not(:disabled) {
+    background-color: #555;
+}
+  
+
+  @media (max-width: 600px) {
+    .tableContainer td {
+      padding: 5px;
+      font-size: 0.8em;
+    }
+  
+    .tableContainer th {
+      padding: 5px;
+      font-size: 0.8em;
+    }
+  
+    .tableContainer button {
+      padding: 5px 10px;
+      font-size: 0.8em;
+    }
+  }
+  
