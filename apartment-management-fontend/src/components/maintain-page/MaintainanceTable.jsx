@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import MaintainPopup from './MaintainPopup';
 
 const sampleData = new Array(3).fill(null).map((_, index) => ({
   id: 101 + index,
@@ -26,6 +27,10 @@ const MaintainanceTable = () => {
 
   const handleCancel = () => {
     setEditItem(null)
+  }
+
+  const handleAdd= (item) =>{
+    setEditItem(item)
   }
 
   return (
@@ -67,6 +72,8 @@ const MaintainanceTable = () => {
             </button>
             ))}
         </div>
+        <button className='addMaintainRoom'>เพิ่มห้องที่ต้องการซ่อม</button>
+        {editItem && (<MaintainPopup maintainData={editItem} handleCancel={handleCancel}/>)}
     </div>
   );
 };

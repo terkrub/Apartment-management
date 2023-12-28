@@ -23,3 +23,12 @@
 .maintainance h3{
     padding-left: 5%;
 }
+
+.addMaintainRoom{
+    background-color: #01BFFB;
+    height: 5%;
+    width: 10%;
+    border-radius: 10px;
+    color: #ffff;
+    font-weight: bolder;
+}
