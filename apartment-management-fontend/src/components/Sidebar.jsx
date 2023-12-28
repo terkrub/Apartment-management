@@ -18,7 +18,7 @@ const Sidebar =({active})=>{
                 </li>
 
                 <li className={active === "roomInfo" ? 'sidebar-selected':'sidebar'}>
-                    <a href="/">
+                    <a href="/roomInfo">
                         <div>
                             <Icon.RoomInfoIcon active={active}/>
                             <span>ข้อมูลห้อง</span>
@@ -27,7 +27,7 @@ const Sidebar =({active})=>{
                 </li>
 
                 <li className={active === "maintain" ? 'sidebar-selected':'sidebar'}>
-                    <a href="/">
+                    <a href="/maintenance">
                         <div>
                             <Icon.BuildIcon active={active}/>
                             <span>แจ้งซ่อม</span>
