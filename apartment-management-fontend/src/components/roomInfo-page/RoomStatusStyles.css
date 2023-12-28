@@ -1,0 +1,25 @@
+.roomStatusContainer{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+}
+
+.roomStatus{
+    background-color: #2F2F2E;
+    border-radius: 10px;
+    color: #ffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    height: 35%;
+    margin-left: 5%;
+}
+.roomStatus *{
+    font-size: 0.9vw;
+}
+
+.roomStatus h3{
+    padding-left: 5%;
+}
