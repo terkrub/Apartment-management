@@ -6,4 +6,20 @@
     width: 96%;
     height: 50vh;
     position: relative;
+    padding-bottom: 40px;
+
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-around; /* Adjust for alignment */
+    margin-left: 5%;
+}
+
+.monthButton {
+    border: 1px solid #ccc;
+    background-color: #f7f7f7;
+    cursor: pointer;
+    font-size: 0.9vw;
+    
 }

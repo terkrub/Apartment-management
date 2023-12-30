@@ -1,15 +1,15 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import { 
-    Chart as ChartJS, 
-    CategoryScale, 
-    LinearScale, 
-    BarElement, 
-    Title, 
-    Tooltip, 
-    Legend 
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
 } from 'chart.js';
-import './FinancialGraphStyles.css'
+import './FinancialGraphStyles.css';
 
 // Register the necessary Chart.js components
 ChartJS.register(
@@ -30,6 +30,9 @@ const FinancialGraph = ({ data }) => {
                 type: 'category',
                 labels: data.map(d => d.month),
                 barPercentage: 0.5,
+                ticks: {
+                    display: false // Hides the x-axis labels
+                }
             },
             y: {
                 beginAtZero: true
@@ -58,7 +61,6 @@ const FinancialGraph = ({ data }) => {
                 backgroundColor: '#2AEA82',
                 borderColor: '#2AEA82',
                 borderWidth: 1,
-
             },
             {
                 label: 'รายจ่าย',
@@ -78,8 +80,16 @@ const FinancialGraph = ({ data }) => {
     };
 
     return (
-        <div className='chartContainer'>
-            <Bar data={chartData} options={options} />
+        <div>
+            <div className='chartContainer'>
+                <Bar data={chartData} options={options} />
+                <div className="buttonContainer">
+                    {data.map((d, index) => (
+                        <button key={index} className="monthButton">{d.month}</button>
+                    ))}
+                </div>
+            </div>
+            
         </div>
     );
 };
