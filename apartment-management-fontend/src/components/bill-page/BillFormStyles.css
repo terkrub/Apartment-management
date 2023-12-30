@@ -1,0 +1,43 @@
+.meterForm-container{
+
+    background-color: #fff;
+    border-radius: 10px;
+    border-radius: 10px;
+    width: 10vw;
+}
+
+.meterForm-container form{
+    background-color: #fff;
+    border-radius: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.meterForm-container label {
+    display: inline-block;
+    background-color: #fff;
+    font-weight: bold;
+    margin-right: 1em;
+}
+
+.meterForm-container input{
+    display: block;
+    width: 90%;
+    margin-bottom: 1em;
+    padding: 0.5em;
+}
+  
+.meterForm-container button {
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+    background-color: #4caf50;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+  
+.meterForm-container button:hover {
+    background-color: #3e8e41;
+}
+  

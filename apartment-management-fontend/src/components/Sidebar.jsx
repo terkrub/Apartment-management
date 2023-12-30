@@ -36,10 +36,19 @@ const Sidebar =({active})=>{
                 </li>
 
                 <li className={active === "bill" ? 'sidebar-selected':'sidebar'}>
-                    <a href="/">
+                    <a href="/bill">
                         <div>
                             <Icon.BillIcon active={active}/>
                             <span>ออกบิล</span>
+                        </div>
+                    </a>
+                </li>
+
+                <li className={active === "finance" ? 'sidebar-selected':'sidebar'}>
+                    <a href="/finance">
+                        <div>
+                            <Icon.Finance active={active}/>
+                            <span>งบการเงิน</span>
                         </div>
                     </a>
                 </li>

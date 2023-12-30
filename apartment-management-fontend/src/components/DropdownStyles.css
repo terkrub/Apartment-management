@@ -1,0 +1,19 @@
+.dropdown-menu {
+    width: 50%;
+    height: 30px;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+  
+.dropdown-menu option{
+    padding: 16px 32px;
+    cursor: pointer;
+}
+  
+.dropdown-menu option:hover {
+    background-color: lightgray;
+}
