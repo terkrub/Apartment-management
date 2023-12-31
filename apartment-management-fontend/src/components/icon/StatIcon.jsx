@@ -52,7 +52,21 @@ const BuildIcon =()=>(
     </svg>
 )
 
+const CloseIcon =()=>(
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_5_9629)">
+    <path d="M6.58599 7.99999L0.292988 1.70699C-0.0970117 1.31699 -0.0970117 0.682988 0.292988 0.292988C0.682988 -0.0970117 1.31699 -0.0970117 1.70699 0.292988L7.99999 6.58599L14.293 0.292988C14.683 -0.0970117 15.317 -0.0970117 15.707 0.292988C16.097 0.682988 16.097 1.31699 15.707 1.70699L9.41399 7.99999L15.707 14.293C16.097 14.683 16.097 15.317 15.707 15.707C15.317 16.097 14.683 16.097 14.293 15.707L7.99999 9.41399L1.70699 15.707C1.31699 16.097 0.682988 16.097 0.292988 15.707C-0.0970117 15.317 -0.0970117 14.683 0.292988 14.293L6.58599 7.99999Z" fill="#8E949D"/>
+    </g>
+    <defs>
+    <clipPath id="clip0_5_9629">
+    <rect width="16" height="16" fill="white"/>
+    </clipPath>
+    </defs>
+    </svg>
+
+)
 
 
 
-export default {IncomeIcon,ExpenseIcon, ProfitIcon, DoorIcon, BuildIcon}
+
+export default {IncomeIcon,ExpenseIcon, ProfitIcon, DoorIcon, BuildIcon, CloseIcon}

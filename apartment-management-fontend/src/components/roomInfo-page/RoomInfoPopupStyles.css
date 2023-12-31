@@ -47,7 +47,7 @@
     box-sizing: border-box;
 }
   
-.popup-content button {
+.popup-content .submitBtn, .popup-content .cancelBtn{
     margin-right: 10px;
     width: 15%;
     color: #ffff;

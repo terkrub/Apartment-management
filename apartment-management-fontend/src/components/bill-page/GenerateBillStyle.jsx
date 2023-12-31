@@ -6,11 +6,10 @@ const GenerateBillStyles = Styling(`
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 300px;
+    height:180px;
   }
-  .billcontainer *{
-    margin: 0;
-    padding: 0; 
+  .billcontainer .logo{
+    width: 260px;
   }
 
   .billcontainer h2 {

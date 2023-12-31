@@ -12,14 +12,15 @@
 
 .buttonContainer {
     display: flex;
-    justify-content: space-around; /* Adjust for alignment */
-    margin-left: 5%;
+    justify-content: space-around; 
+    margin-left: 3%;
+    width: 96%;
 }
 
 .monthButton {
     border: 1px solid #ccc;
     background-color: #f7f7f7;
     cursor: pointer;
-    font-size: 0.9vw;
+    font-size: 0.9rem;
     
 }

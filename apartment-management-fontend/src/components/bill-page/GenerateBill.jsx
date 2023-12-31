@@ -16,7 +16,7 @@ const GenerateBill = ({ currentMeter, lastMeter , roomInfo, pdfContentRef, billI
     <div style={GenerateBillStyles.billcontainer}>
       <div ref={pdfContentRef}>
         <div style={GenerateBillStyles['billcontainer .logo-container']}>
-          <img className='logo' src={require('../../img/Laithonghouse-logo-RM-BG.png')}  alt="Logo"/>
+          <img style={GenerateBillStyles['billcontainer .logo']} className='logo' src={require('../../img/Laithonghouse-logo-RM-BG.png')}  alt="Logo"/>
         </div>
 
         <h2 style={GenerateBillStyles['billcontainer h2']}>ใบเเจ้งหนี้/ใบเสร็จรับเงิน</h2>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -10,6 +10,7 @@ import {
     Legend
 } from 'chart.js';
 import './FinancialGraphStyles.css';
+import FinanceInfoPopup from '../Finance/FinancePopup';
 
 // Register the necessary Chart.js components
 ChartJS.register(
@@ -22,6 +23,7 @@ ChartJS.register(
 );
 
 const FinancialGraph = ({ data }) => {
+    const [monthSelected,setMonthSelected] = useState(null)
     const options = {
         responsive: true,
         maintainAspectRatio: false,
@@ -85,11 +87,11 @@ const FinancialGraph = ({ data }) => {
                 <Bar data={chartData} options={options} />
                 <div className="buttonContainer">
                     {data.map((d, index) => (
-                        <button key={index} className="monthButton">{d.month}</button>
+                        <button key={index} className="monthButton" onClick={()=>{setMonthSelected(d.month)}}>{d.month}</button>
                     ))}
                 </div>
             </div>
-            
+            {monthSelected&&<FinanceInfoPopup month={monthSelected} setMonthSelected={setMonthSelected}/>}
         </div>
     );
 };
