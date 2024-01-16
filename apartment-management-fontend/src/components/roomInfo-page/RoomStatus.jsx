@@ -1,13 +1,13 @@
 import './RoomStatusStyles.css'
 
-const RoomStatus=()=>{
+const RoomStatus=({total, available})=>{
     return(
         <div className="roomStatusContainer">
             <div className='roomStatus'>
                 <h3>ห้องทั้งหมด:</h3>
-                <a> XXX</a>
+                <a> {total}</a>
                 <h3>จำนวนห้องว่าง:</h3>
-                <a> XXX</a>
+                <a> {available}</a>
             </div>
         </div>
     )

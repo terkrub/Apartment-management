@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './BillFormStyles.css';
 import Dropdown from '../Dropdown.jsx';
+import axios from '../../api/axios.jsx'
 
 const BillForm = ({ otherBill ,setOtherBill, setCurrentMeter, setLastMeter, setRoomInfo, setRoomPrice, roomPrice }) => {
   const options = Array.from({ length: 30 }, (_, i) => (i < 10 ? 101 : i < 20 ? 201 : 301) + (i % 10));
@@ -16,6 +17,47 @@ const BillForm = ({ otherBill ,setOtherBill, setCurrentMeter, setLastMeter, setR
   const [otherBillTitle, setOtherBillTitle] = useState('');
   const [otherBillUnit, setOtherBillUnit] = useState('');
   const [otherBillPricePerUnit, setOtherBillPricePerUnit] = useState('');
+
+  useEffect(() => {
+    if (!selectedOption) return;  
+    const token = localStorage.getItem('token');
+    
+    axios.post('/MeterInfo', { roomNumber: selectedOption }, { 
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      withCredentials: true
+    })
+      .then(res => {
+        setRoomInfo(res.data.roomInfo.room[0])
+        setCurrentMeter(res.data.currentMeterResult[0] || {ElectricMeter: "", WaterMeter: ""});
+        setCurrentEletricMeter(res.data.currentMeterResult[0]?res.data.currentMeterResult[0].ElectricMeter:"")
+        setCurrentWaterMeter(res.data.currentMeterResult[0]?res.data.currentMeterResult[0].WaterMeter:"")
+
+
+        if (res.data.currentMeterResult[0] && res.data.currentMeterResult[0].date) {
+          const currentMeterDateFormatted = new Date(res.data.currentMeterResult[0].date).toISOString().split('T')[0];
+          setCurrentMeterDate(currentMeterDateFormatted);
+        }else{
+          setCurrentMeterDate("DD/MM/YYYY");
+        }
+
+        setLastMeter(res.data.lastMeterResult[0] || {ElectricMeter: '', WaterMeter: ''});
+        setLastEletricMeter(res.data.lastMeterResult[0]?res.data.lastMeterResult[0].ElectricMeter:"")
+        setLastWaterMeter(res.data.lastMeterResult[0]?res.data.lastMeterResult[0].WaterMeter:"")
+
+        if (res.data.lastMeterResult[0] && res.data.lastMeterResult[0].date) {
+          const lastMeterDateFormatted = new Date(res.data.lastMeterResult[0].date).toISOString().split('T')[0];
+          setLastMeterDate(lastMeterDateFormatted);
+        }
+        else{
+          setLastMeterDate("DD/MM/YYYY");
+        }
+      })
+      .catch(err => console.error(err));
+
+  }, [selectedOption]);
 
   const handleSelectBill = (bill) => {
     setSelectedBill(bill);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './RoomInfoTableStyles.css'
 import RoomInfoPopup from './RoomInfoPopup';
 
@@ -11,19 +11,20 @@ const sampleData = new Array(30).fill(null).map((_, index) => ({
   keycard: 2 + (index % 3),
   keycardExpire: `07/12/2023`,
   deposit: 4200 + (index * 100),
+  roomPrice: 3500
 }));
 
 const ITEMS_PER_PAGE = 10;
 
-const RoomInfoTable = () => {
+const RoomInfoTable = ({data, onDataChange}) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [dataToShow, setDataToShow] = useState(sampleData.slice(0, ITEMS_PER_PAGE));
+  const [dataToShow, setDataToShow] = useState(data.slice(0, ITEMS_PER_PAGE));
   const [editItem, setEditItem] = useState(null)
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
     const startIndex = (newPage - 1) * ITEMS_PER_PAGE;
-    setDataToShow(sampleData.slice(startIndex, startIndex + ITEMS_PER_PAGE));
+    setDataToShow(data.slice(startIndex, startIndex + ITEMS_PER_PAGE));
   };
 
   const handleEdit = (item) => {
@@ -33,6 +34,11 @@ const RoomInfoTable = () => {
   const handleCancel = () => {
     setEditItem(null)
   }
+
+  useEffect(()=>{
+    setDataToShow(data.slice(0, ITEMS_PER_PAGE));
+    setCurrentPage(1);
+  },[data])
 
   return (
     <div className='tableContainer'>
@@ -52,15 +58,15 @@ const RoomInfoTable = () => {
             </thead>
             <tbody>
                 {dataToShow.map((item) => (
-                <tr key={item.id}>
-                    <td>{item.id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.phoneNumber}</td>
-                    <td>{item.entryDate}</td>
-                    <td>{item.exitDate}</td>
-                    <td>{item.keycard}</td>
-                    <td>{item.keycardExpire}</td>
-                    <td>{item.deposit}</td>
+                <tr key={item.roomNumber}>
+                    <td>{item.roomNumber}</td>
+                    <td>{item.rentalName}</td>
+                    <td>{item.rentalPhone}</td>
+                    <td>{item.startDate ? new Date(item.startDate).toLocaleDateString('en-GB') :""}</td>
+                    <td>{item.exitDate ? new Date(item.exitDate).toLocaleDateString('en-GB') :""}</td>
+                    <td>{item.totalKey}</td>
+                    <td>{item.keyExpireDate ? new Date(item.keyExpireDate).toLocaleDateString('en-GB') :""}</td>
+                    <td>{item.totalDeposit}</td>
                     <td>
                     <button className='editBtn' onClick={() => handleEdit(item)}>แก้ไข</button>
                     </td>

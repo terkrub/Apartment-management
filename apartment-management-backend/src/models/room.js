@@ -1,0 +1,50 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+
+
+const roomSchema = new Schema({
+    roomNumber: {
+        type: Number,
+        required: true,
+        unique: true,
+        index: true  
+    },
+    rentalName: {
+        type: String
+    },
+    rentalPhone:{
+        type: String
+    },
+    totalKey:{
+        type: Number,
+    },
+    startDate:{
+        type: Date
+    },
+    totalDeposit:{
+        type: Number
+    },
+    exitDate:{
+        type: Date
+    },
+    keyExpireDate:{
+        type: Date
+    },
+    available:{
+        type: Boolean
+    },
+    paid:{
+        type: Boolean
+    },
+    roomPrice:{
+        type: Number
+    }
+
+
+}, {timestamps: false})
+
+
+const Room = mongoose.model("RoomInfo", roomSchema);
+
+module.exports = Room;
