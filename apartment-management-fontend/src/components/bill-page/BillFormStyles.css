@@ -27,17 +27,30 @@
     margin-bottom: 1em;
     padding: 0.5em;
 }
-  
-.meterForm-container button {
+
+.GenerateBillBtn{
+    background-color: #1f4ee7;
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+    color: white;
+    font-weight: bold;
+    margin-top: 5%;
+}
+
+.meterForm-container .GenerateBillBtn:hover {
+    background-color: #0e256e;
+}
+
+.meterForm-container .submitBtn {
     padding: 0.5em 1em;
     border-radius: 0.5em;
     background-color: #4caf50;
     color: white;
     font-weight: bold;
-    cursor: pointer;
+
 }
   
-.meterForm-container button:hover {
+.meterForm-container .submitBtn:hover {
     background-color: #3e8e41;
 }
-  
+

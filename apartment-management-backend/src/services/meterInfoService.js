@@ -51,7 +51,7 @@ const addMeterInfo = async (roomNumber, newMeterInfo) => {
 const updateMeterInfo = async (updateData) => {
   const updateDataCopy = { ...updateData }; // create a copy of updateData
   delete updateDataCopy._id; // remove _id from the copied object
-  const id = mongoose.Types.ObjectId(updateData._id);
+  const id = new mongoose.Types.ObjectId(updateData._id);
   const meter = await Meter.findOneAndUpdate({ _id: id }, { $set: updateDataCopy })
   return meter
 }

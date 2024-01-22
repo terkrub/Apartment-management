@@ -3,7 +3,7 @@ import './BillFormStyles.css';
 import Dropdown from '../Dropdown.jsx';
 import axios from '../../api/axios.jsx'
 
-const BillForm = ({ otherBill ,setOtherBill, setCurrentMeter, setLastMeter, setRoomInfo, setRoomPrice, roomPrice }) => {
+const BillForm = ({generatePdf, handlegenerateBill, otherBill ,setOtherBill, setCurrentMeter, setLastMeter, setRoomInfo, setRoomPrice, roomPrice }) => {
   const options = Array.from({ length: 30 }, (_, i) => (i < 10 ? 101 : i < 20 ? 201 : 301) + (i % 10));
   const billListNames = ['ค่าน้ำ ค่าไฟ', 'ค่าเช่าห้อง', 'อื่นๆ']
   const [selectedOption, setSelectedOption] = useState('');
@@ -31,6 +31,7 @@ const BillForm = ({ otherBill ,setOtherBill, setCurrentMeter, setLastMeter, setR
     })
       .then(res => {
         setRoomInfo(res.data.roomInfo.room[0])
+        setRoomPrice(res.data.roomInfo.room[0].roomPrice)
         setCurrentMeter(res.data.currentMeterResult[0] || {ElectricMeter: "", WaterMeter: ""});
         setCurrentEletricMeter(res.data.currentMeterResult[0]?res.data.currentMeterResult[0].ElectricMeter:"")
         setCurrentWaterMeter(res.data.currentMeterResult[0]?res.data.currentMeterResult[0].WaterMeter:"")
@@ -66,6 +67,7 @@ const BillForm = ({ otherBill ,setOtherBill, setCurrentMeter, setLastMeter, setR
   const handleSelect = (option) => {
     setSelectedOption(option);
   }
+
   const handleSubmit=(e)=>{
     e.preventDefault()
     if(selectedBill === 'อื่นๆ'){
@@ -143,6 +145,9 @@ const BillForm = ({ otherBill ,setOtherBill, setCurrentMeter, setLastMeter, setR
           title={"เลือกรายการ"}
         />
         <input type="hidden" name="selectedOption" value={selectedOption}/>
+        {!selectedBill&&(
+          <button className='GenerateBillBtn' onClick={generatePdf}>Download</button>
+        )}
 
         {selectedBill === 'ค่าน้ำ ค่าไฟ' &&(
           <>
@@ -159,6 +164,7 @@ const BillForm = ({ otherBill ,setOtherBill, setCurrentMeter, setLastMeter, setR
             <input type='number' name='currentEletricMeter' value={currentEletricMeter} onChange={handleChange} required></input>
             <label>วันที่จดบันทึกปัจจุบัน:</label>
             <input type='date' name='currentDate' value={currentMeterDate} onChange={handleChange} placeholder="dd/mm/yyyy" required></input>
+            <button className='GenerateBillBtn' onClick={handlegenerateBill}>ออกบิล</button>
 
           </>
         )}
@@ -167,7 +173,7 @@ const BillForm = ({ otherBill ,setOtherBill, setCurrentMeter, setLastMeter, setR
           <>
             <label>ราคาค่าเช่า:</label>
             <input type='number' name='roomPrice' value={roomPrice} onChange={handleChange} required></input>
-            
+            <button className='GenerateBillBtn' onClick={handlegenerateBill}>ออกบิล</button>            
           </>
         )}
 
@@ -181,12 +187,14 @@ const BillForm = ({ otherBill ,setOtherBill, setCurrentMeter, setLastMeter, setR
 
             <label>ราคาต่อหน่วย:</label>
             <input type='number' name='PricePerunit' value={otherBillPricePerUnit} onChange={(e)=>{setOtherBillPricePerUnit(e.target.value)}} required></input>
-            
+            <button type="submit" className='submitBtn'>บันทึก</button>
+            <button className='GenerateBillBtn' onClick={handlegenerateBill}>ออกบิล</button> 
           </>
+          
         )}
     
       
-        <button type="submit">บันทึก</button>
+        
       </form>
     </div>
   );

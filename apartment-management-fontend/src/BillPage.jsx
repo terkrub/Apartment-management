@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
+import html2pdf from 'html2pdf.js';
 import Sidebar from "./components/Sidebar"
 import GenerateBill from "./components/bill-page/GenerateBill"
 import './BillPageStyles.css'
 import BillForm from './components/bill-page/BillForm';
+import axios from '../src/api/axios';
 
 const BillPage=()=>{
     const [currentMeter, setCurrentMeter] = useState(null);
@@ -47,6 +49,70 @@ const BillPage=()=>{
       setFinalBill([...meterItem, ...otherBill]);
     }, [otherBill, meterItem]);
 
+    const generatePdf = () => {
+      const date = new Date();
+      const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+          const options = {
+            margin: [10, 5, 10, 5],
+            filename: `${roomInfo.roomNumber}-${formattedDate}.pdf`,
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: { dpi: 192, scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+          };
+      
+          return html2pdf().from(pdfContentRef.current).set(options).save();
+    };
+
+    const handlegenerateBill= async ()=>{
+        const token = localStorage.getItem('token');
+
+        axios.post('/AddMeter', {roomInfo,currentMeter,lastMeter}, {
+        headers: {
+            'Content-Type':'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        withCredentials: true
+        })
+        .then(res => {
+            setCurrentMeter(null)
+            setLastMeter(null)
+            setRoomInfo(null)
+        })
+        .catch(err => console.error(err))
+        
+      
+        const totalIncome = finalBill.reduce((total, item) => total + (item.amount || 0), 0)
+        const listName = `ค่าห้อง: ${roomInfo.roomNumber}`
+        axios.post('/addIncome', {title: "roomIncome",listName, finalBill, totalIncome}, {
+          headers: {
+              'Content-Type':'application/json',
+              'Authorization': `Bearer ${token}`
+          },
+          withCredentials: true
+          })
+          .then(res => {
+          })
+          .catch(err => console.error(err))
+
+
+          if(Number(roomPrice) !== roomInfo.roomPrice){
+            const room = roomInfo.roomNumber
+            axios.post('/updatePrice', {room, roomPrice}, {
+              headers: {
+                  'Content-Type':'application/json',
+                  'Authorization': `Bearer ${token}`
+              },
+              withCredentials: true
+              })
+              .then(res => {
+              })
+              .catch(err => console.error(err))
+          }
+        await generatePdf()
+        window.location.reload();
+
+    }
+
     return(
         <div className="App">
             <aside>
@@ -55,10 +121,10 @@ const BillPage=()=>{
             <section>
               <div className='billContainer'>
                 <div className="BillPreview">
-                    <GenerateBill billItems={finalBill}/>
+                    <GenerateBill billItems={finalBill} roomInfo={roomInfo} pdfContentRef={pdfContentRef}/>
                 </div>
                 <div className='formContainer'>
-                  <BillForm  setOtherBill={setOtherBill} otherBill={otherBill}/>             
+                  <BillForm generatePdf={generatePdf} handlegenerateBill={handlegenerateBill} setRoomInfo={setRoomInfo} setOtherBill={setOtherBill} otherBill={otherBill} setCurrentMeter={setCurrentMeter} setLastMeter={setLastMeter} setRoomPrice={setRoomPrice} roomPrice={roomPrice}/>             
                 </div>
               </div>
             </section>

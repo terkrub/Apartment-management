@@ -18,5 +18,15 @@ const getRoomInfo = async (searchParam) => {
     return {totalRooms, totalAvailable, room};
 }
 
+const updateRoomPrice = async (roomNum, newPrice) => {
+    try {
+        const room = await Room.findOneAndUpdate({ roomNumber: roomNum }, { roomPrice: newPrice }, { new: true });
+        return room;
+    } catch (error) {
+        console.error("Error updating room price:", error);
+    }
+    return room
+}
 
-module.exports = {addRoomInfo,getRoomInfo}
+
+module.exports = {addRoomInfo, getRoomInfo, updateRoomPrice}

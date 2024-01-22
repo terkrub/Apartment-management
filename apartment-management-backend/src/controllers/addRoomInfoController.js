@@ -1,4 +1,4 @@
-const {addRoomInfo, getRoomInfo} = require("../services/addRoomInfo");
+const {addRoomInfo, getRoomInfo, updateRoomPrice} = require("../services/addRoomInfo");
 
 const addRoomInfoController = async (req,res) =>{
     
@@ -29,4 +29,9 @@ const getRoomInfoController = async (req,res)=>{
     res.json({total: totalRooms, available: totalAvailable, results: room})
 }
 
-module.exports = {addRoomInfoController,getRoomInfoController}
+const updateRoomPrceController = async(req,res)=>{
+    const room = await updateRoomPrice(req.body.room, req.body.roomPrice)
+    res.json({status: 'Success'})
+}
+
+module.exports = {addRoomInfoController,getRoomInfoController, updateRoomPrceController}
