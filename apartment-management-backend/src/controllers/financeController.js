@@ -16,14 +16,15 @@ const addIncomeController = async (req,res) =>{
         }
     }
     else{
-        const newIncome = await addIncomeInfo(req.body.listName, null, req.body.totalIncome, req.body.date)
+        const newIncome = await addIncomeInfo(req.body.listName, null, req.body.totalIncome, new Date(`${currentDate.getFullYear}-${req.body.month}-02`))
         
         res.json(newIncome)
     }
 }
 
 const addExpenseController = async (req,res) =>{
-    const newExpense = await addExpenseInfo(req.body.title, req.body.TotalExpense, req.body.date)
+    const currentDate = new Date();
+    const newExpense = await addExpenseInfo(req.body.title, req.body.TotalExpense, new Date(`${currentDate.getFullYear}-${req.body.month}-02`))
     res.json(newExpense)
 }
 

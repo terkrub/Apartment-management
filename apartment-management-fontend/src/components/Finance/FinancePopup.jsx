@@ -31,7 +31,7 @@ const FinanceInfoPopup = ({month, setMonthSelected, fetchFinanceData}) => {
   const handleAddIncome = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token')
-    axios.post('/addIncome', {title: "Income",listName: newIncome.title, totalIncome: newIncome.TotalIncome, date: new Date(`${currentYear}-${month}-02`)}, {
+    axios.post('/addIncome', {title: "Income",listName: newIncome.title, totalIncome: newIncome.TotalIncome, month: month}, {
       headers: {
           'Content-Type':'application/json',
           'Authorization': `Bearer ${token}`
@@ -50,7 +50,7 @@ const FinanceInfoPopup = ({month, setMonthSelected, fetchFinanceData}) => {
   const handleAddExpense = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token')
-    axios.post('/addExpense', {title: newExpense.title, TotalExpense: newExpense.TotalExpense, date: new Date(`${currentYear}-${month}-02`)}, {
+    axios.post('/addExpense', {title: newExpense.title, TotalExpense: newExpense.TotalExpense, month: month}, {
       headers: {
           'Content-Type':'application/json',
           'Authorization': `Bearer ${token}`
