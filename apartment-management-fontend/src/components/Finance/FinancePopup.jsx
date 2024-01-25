@@ -9,7 +9,6 @@ const FinanceInfoPopup = ({month, setMonthSelected, fetchFinanceData}) => {
   const [expenseData,setExpenseData] = useState([]) 
   const [newIncome, setNewIncome] = useState({ title: '', TotalIncome: 0 });
   const [newExpense, setNewExpense] = useState({ title: '', TotalExpense: 0 });
-  const currentYear = new Date().getFullYear();
   const months_th_mini = [ "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค." ];
   
   useEffect(() => {
@@ -50,6 +49,7 @@ const FinanceInfoPopup = ({month, setMonthSelected, fetchFinanceData}) => {
   const handleAddExpense = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token')
+    
     axios.post('/addExpense', {title: newExpense.title, TotalExpense: newExpense.TotalExpense, month: month}, {
       headers: {
           'Content-Type':'application/json',
