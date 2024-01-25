@@ -5,6 +5,9 @@ const expense = require('../models/expense');
 
 const addIncomeController = async (req,res) =>{
     const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = req.body.month.toString().padStart(2, '0'); // Ensure month is two digits
+    const newExpenseDate = new Date(`${year}-${month}-02`);
     if(req.body.title === "roomIncome"){
         const incomeInfo = await getIncomeInfo(req.body.listName,currentDate)
         if(incomeInfo.length === 0){
@@ -16,15 +19,17 @@ const addIncomeController = async (req,res) =>{
         }
     }
     else{
-        const newIncome = await addIncomeInfo(req.body.listName, null, req.body.totalIncome, new Date(`${currentDate.getFullYear}-${req.body.month}-02`))
+        const newIncome = await addIncomeInfo(req.body.listName, null, req.body.totalIncome, newExpenseDate)
         
         res.json(newIncome)
     }
 }
 
 const addExpenseController = async (req,res) =>{
-    const currentDate = new Date();
-    const newExpense = await addExpenseInfo(req.body.title, req.body.TotalExpense, new Date(`${currentDate.getFullYear}-${req.body.month}-02`))
+    const year = currentDate.getFullYear();
+    const month = req.body.month.toString().padStart(2, '0'); // Ensure month is two digits
+    const newExpenseDate = new Date(`${year}-${month}-02`);
+    const newExpense = await addExpenseInfo(req.body.title, req.body.TotalExpense, newExpenseDate)
     res.json(newExpense)
 }
 
