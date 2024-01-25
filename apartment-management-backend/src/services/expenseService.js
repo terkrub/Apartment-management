@@ -20,7 +20,7 @@ const getSpecificMonthExpense =async(month) =>{
     const endDate = new Date(currentYear, month, 0);
     const expenseData = await expense.aggregate([
       { $match: { date: { $gte: startDate, $lte: endDate } } },
-      { $project: { title: 1, TotalIncome: 1, date: 1 } }
+      { $project: { title: 1, TotalExpense: 1, date: 1 } }
     ]);
   
     return expenseData
