@@ -1,23 +1,31 @@
+import React, { useState, useEffect } from 'react';
 import Sidebar from "./components/Sidebar"
 import FinancialGraph from "./components/home-page/FinancialGraph";
 import OverallStatus from "./components/home-page/OverallStatus"
+import axios from "./api/axios.jsx"
 
 const Homepage=()=>{
-    const financialData = [
-        { month: 'January', income: 1000, expense: 700, profit: 300 },
-        { month: 'February', income: 1500, expense: 800, profit: 700 },
-        { month: 'February', income: 1500, expense: 800, profit: 700 },
-        { month: 'February', income: 1500, expense: 800, profit: 700 },
-        { month: 'February', income: 1500, expense: 800, profit: 700 },
-        { month: 'February', income: 1500, expense: 800, profit: 700 },
-        { month: 'January', income: 1000, expense: 700, profit: 300 },
-        { month: 'February', income: 1500, expense: 800, profit: 700 },
-        { month: 'February', income: 1500, expense: 800, profit: 700 },
-        { month: 'February', income: 1500, expense: 800, profit: 700 },
-        { month: 'February', income: 1500, expense: 800, profit: 700 },
-        { month: 'February', income: 1500, expense: 800, profit: 700 },
-        // ... other months
-    ];
+    const [financialData, setFinancialData] = useState([]);
+
+    const fetchFinanceData=()=>{
+        const token = localStorage.getItem('token')
+        axios.post('/monthly-finance',{ roomNumber: null },{
+            headers: {
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            withCredentials: true
+        })
+          .then(res => {
+            setFinancialData(res.data)
+          })
+          .catch(err => console.error(err))
+    }
+
+    useEffect(() => {
+        fetchFinanceData()
+      }, []);
+
     return(
         <div className="App">
             <aside>
@@ -25,7 +33,7 @@ const Homepage=()=>{
             </aside>
             <section>
                 <OverallStatus/>
-                <FinancialGraph data={financialData}/>
+                <FinancialGraph data={financialData} fetchFinanceData={fetchFinanceData}/>
             </section>
         </div>
     )

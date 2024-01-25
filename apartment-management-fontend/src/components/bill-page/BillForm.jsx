@@ -136,8 +136,9 @@ const BillForm = ({generatePdf, handlegenerateBill, otherBill ,setOtherBill, set
         <label>เลือกห้อง:</label>
         <Dropdown id="dropdown" options={options} onSelect={handleSelect} title={"เลือกห้อง"}/>
         <input type="hidden" name="selectedOption" value={selectedOption}/>
-
-        <label>รายการ:</label>
+      {selectedOption && (
+        <>
+         <label>รายการ:</label>
         <Dropdown 
           id="dropdown" 
           options={billListNames} 
@@ -145,6 +146,9 @@ const BillForm = ({generatePdf, handlegenerateBill, otherBill ,setOtherBill, set
           title={"เลือกรายการ"}
         />
         <input type="hidden" name="selectedOption" value={selectedOption}/>
+        </>
+      )}
+       
         {!selectedBill&&(
           <button className='GenerateBillBtn' onClick={generatePdf}>Download</button>
         )}

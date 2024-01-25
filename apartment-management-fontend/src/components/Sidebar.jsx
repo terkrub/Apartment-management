@@ -25,7 +25,7 @@ const Sidebar =({active})=>{
                         </div>
                     </a>
                 </li>
-
+{/*
                 <li className={active === "maintain" ? 'sidebar-selected':'sidebar'}>
                     <a href="/maintenance">
                         <div>
@@ -34,21 +34,12 @@ const Sidebar =({active})=>{
                         </div>
                     </a>
                 </li>
-
+*/}
                 <li className={active === "bill" ? 'sidebar-selected':'sidebar'}>
                     <a href="/bill">
                         <div>
                             <Icon.BillIcon active={active}/>
                             <span>ออกบิล</span>
-                        </div>
-                    </a>
-                </li>
-
-                <li className={active === "finance" ? 'sidebar-selected':'sidebar'}>
-                    <a href="/finance">
-                        <div>
-                            <Icon.Finance active={active}/>
-                            <span>งบการเงิน</span>
                         </div>
                     </a>
                 </li>

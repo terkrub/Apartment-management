@@ -19,8 +19,10 @@
 
 .monthButton {
     border: 1px solid #ccc;
-    background-color: #f7f7f7;
+    background-color: #f0efef;
     cursor: pointer;
     font-size: 0.9rem;
+    width: 50px;
+    text-align: center;
     
 }

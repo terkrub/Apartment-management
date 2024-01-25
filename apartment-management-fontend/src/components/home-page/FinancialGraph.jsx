@@ -22,7 +22,7 @@ ChartJS.register(
     Legend
 );
 
-const FinancialGraph = ({ data }) => {
+const FinancialGraph = ({ data, fetchFinanceData }) => {
     const [monthSelected,setMonthSelected] = useState(null)
     const options = {
         responsive: true,
@@ -81,17 +81,19 @@ const FinancialGraph = ({ data }) => {
         ]
     };
 
+    const months_th_mini = [ "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค." ];
+
     return (
         <div>
             <div className='chartContainer'>
                 <Bar data={chartData} options={options} />
                 <div className="buttonContainer">
                     {data.map((d, index) => (
-                        <button key={index} className="monthButton" onClick={()=>{setMonthSelected(d.month)}}>{d.month}</button>
+                        <button key={d.month} className="monthButton" onClick={()=>{setMonthSelected(d.month)}}>{months_th_mini[d.month-1]}</button>
                     ))}
                 </div>
             </div>
-            {monthSelected&&<FinanceInfoPopup month={monthSelected} setMonthSelected={setMonthSelected}/>}
+            {monthSelected&&<FinanceInfoPopup month={monthSelected} setMonthSelected={setMonthSelected} fetchFinanceData={fetchFinanceData}/>}
         </div>
     );
 };
