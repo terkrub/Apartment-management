@@ -8,6 +8,7 @@ const addIncomeController = async (req,res) =>{
     const year = currentDate.getFullYear();
     const month = req.body.month.toString().padStart(2, '0'); // Ensure month is two digits
     const newExpenseDate = new Date(`${year}-${month}-02`);
+    console.log(req.body)
     if(req.body.title === "roomIncome"){
         const incomeInfo = await getIncomeInfo(req.body.listName,currentDate)
         if(incomeInfo.length === 0){
