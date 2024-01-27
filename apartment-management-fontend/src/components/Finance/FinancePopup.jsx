@@ -11,7 +11,7 @@ const FinanceInfoPopup = ({month, setMonthSelected, fetchFinanceData}) => {
   const [newExpense, setNewExpense] = useState({ title: '', TotalExpense: 0 });
   const months_th_mini = [ "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค." ];
   
-  useEffect(() => {
+  const fetchSpecificMonthFinance=()=>{
     const token = localStorage.getItem('token')
         axios.post('/specific-month-finance',{ month },{
             headers: {
@@ -23,8 +23,13 @@ const FinanceInfoPopup = ({month, setMonthSelected, fetchFinanceData}) => {
           .then(res => {
             setIncomeData(res.data.incomeData)
             setExpenseData(res.data.expenseData)
+            console.log(incomeData)
           })
           .catch(err => console.error(err))
+  }
+
+  useEffect(() => {
+    fetchSpecificMonthFinance()
   }, [month]);
 
   const handleAddIncome = (e) => {
@@ -65,6 +70,56 @@ const FinanceInfoPopup = ({month, setMonthSelected, fetchFinanceData}) => {
       .catch(err => console.error(err))
   };
 
+  const handleDeletedIncome =(item) =>{
+    const token = localStorage.getItem('token')
+    
+    axios.post('/delete-income', {__id: item._id}, {
+      headers: {
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${token}`
+      },
+      withCredentials: true
+      }).then(res => {
+        fetchSpecificMonthFinance()
+        fetchFinanceData()  
+      })
+      .catch(err => console.error(err))
+  }
+
+  const handleDeletedExpense =(item) =>{
+    console.log(item)
+    const token = localStorage.getItem('token')
+
+    axios.post('/delete-expense', {__id: item._id}, {
+      headers: {
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${token}`
+      },
+      withCredentials: true
+      }).then(res => {
+        fetchSpecificMonthFinance()
+        fetchFinanceData()  
+      })
+      .catch(err => console.error(err))
+  }
+
+  const handleUpdatePaid =(item) =>{
+    console.log(item)
+    const token = localStorage.getItem('token')
+
+    axios.post('update-paid', {_id: item._id}, {
+      headers: {
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${token}`
+      },
+      withCredentials: true
+      }).then(res => {
+        fetchSpecificMonthFinance()
+        fetchFinanceData()  
+      })
+      .catch(err => console.error(err))
+  }
+
   return (
     <div className="popup">
       <div className="popup-content">
@@ -90,6 +145,8 @@ const FinanceInfoPopup = ({month, setMonthSelected, fetchFinanceData}) => {
                       <tr>
                       <th>ชื่อรายการ</th>
                       <th>รายรับสุทธิ</th>
+                      <th>สถานะ</th>
+                      <th>ตัวเลือก</th>
                       </tr>
                   </thead>
                   <tbody>
@@ -97,6 +154,11 @@ const FinanceInfoPopup = ({month, setMonthSelected, fetchFinanceData}) => {
                       <tr key={income._id}>
                         <td>{income.title}</td>
                         <td>{income.TotalIncome}</td>
+                        <td className={income.paid?"paidStatus":"unpaidStatus"}>{income.paid?"ชำระเเล้ว":"ค้างชำระ"}</td>
+                        <td>
+                          {income.paid ? "":<button className='paidBtn' onClick={()=>{handleUpdatePaid(income)}}>ชำระเเล้ว</button>}
+                          <button className='deleteBtn' onClick={()=>{handleDeletedIncome(income)}}>ลบ</button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -130,8 +192,9 @@ const FinanceInfoPopup = ({month, setMonthSelected, fetchFinanceData}) => {
               <table className='incomeTable'>
                 <thead>
                     <tr>
-                    <th>ชื่อรายการ</th>
-                    <th>รายจ่ายสุทธิ</th>
+                      <th>ชื่อรายการ</th>
+                      <th>รายจ่ายสุทธิ</th>
+                      <th>ตัวเลือก</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -139,6 +202,9 @@ const FinanceInfoPopup = ({month, setMonthSelected, fetchFinanceData}) => {
                       <tr key={expense._id}>
                         <td>{expense.title}</td>
                         <td>{expense.TotalExpense}</td>
+                        <td>
+                          <button className='deleteBtn' onClick={()=>{handleDeletedExpense(expense)}}>ลบ</button>
+                        </td>
                       </tr>
                     ))}
                 </tbody>
