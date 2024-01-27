@@ -6,12 +6,21 @@ const addIncomeInfo = async (roomNumber, IncomeInfo,TotalIncome, date) => {
       'title': roomNumber,
       'IncomeInfo': IncomeInfo,
       'TotalIncome': TotalIncome,
-      'paid': true,
+      'paid': false,
       'date': date
     })
   
     return IncomeBill.save()
 }
+
+const deleteIncome = async (__id) => {
+  try {
+    await Income.findByIdAndDelete(__id);
+  } catch (error) {
+    console.error("Error deleting income:", error);
+  }
+}
+
 
 const getIncomeInfo = async (roomNumber, date) => {
     const Month = new Date(date.getFullYear(), date.getMonth())
@@ -70,4 +79,4 @@ const getSpecificMonthIncome =async(month) =>{
  
   
 
-module.exports = {addIncomeInfo, getIncomeInfo, updateIncome, getMonthlyIncomeInfo, getSpecificMonthIncome}
+module.exports = {addIncomeInfo, getIncomeInfo, updateIncome, getMonthlyIncomeInfo, getSpecificMonthIncome, deleteIncome}

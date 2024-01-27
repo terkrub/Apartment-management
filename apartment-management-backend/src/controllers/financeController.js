@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { addIncomeInfo, getIncomeInfo, updateIncome, getMonthlyIncomeInfo, getSpecificMonthIncome } = require("../services/incomeService");
+const { addIncomeInfo, getIncomeInfo, updateIncome, getMonthlyIncomeInfo, getSpecificMonthIncome, deleteIncome } = require("../services/incomeService");
 const { getMonthlyExpenseInfo, getSpecificMonthExpense, addExpenseInfo } = require('../services/expenseService');
 const expense = require('../models/expense');
 
@@ -25,6 +25,10 @@ const addIncomeController = async (req,res) =>{
         
         res.json(newIncome)
     }
+}
+
+const deleteIncomeController = async (req,res) =>{
+    await deleteIncome(req.body.__id)
 }
 
 const addExpenseController = async (req,res) =>{
@@ -57,4 +61,6 @@ const getSpecificMonthFinance = async(req,res) =>{
     res.json({incomeData, expenseData})
 }
 
-module.exports = {addIncomeController,getMonthlyFinance, getSpecificMonthFinance, addExpenseController}
+
+
+module.exports = {addIncomeController,getMonthlyFinance, getSpecificMonthFinance, addExpenseController, deleteIncomeController}
