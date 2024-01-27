@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { addIncomeInfo, getIncomeInfo, updateIncome, getMonthlyIncomeInfo, getSpecificMonthIncome, deleteIncome } = require("../services/incomeService");
+const { addIncomeInfo, getIncomeInfo, updateIncome, getMonthlyIncomeInfo, getSpecificMonthIncome, deleteIncome, updatePaid } = require("../services/incomeService");
 const { getMonthlyExpenseInfo, getSpecificMonthExpense, addExpenseInfo, deleteExpense } = require('../services/expenseService');
 const expense = require('../models/expense');
 
@@ -10,7 +10,7 @@ const addIncomeController = async (req,res) =>{
     if(req.body.title === "roomIncome"){
         const incomeInfo = await getIncomeInfo(req.body.listName,currentDate)
         if(incomeInfo.length === 0){
-            await addIncomeInfo(req.body.listName, req.body.finalBill, req.body.totalIncome, currentDate)
+            await addIncomeInfo(req.body.listName, req.body.finalBill, req.body.totalIncome,false, currentDate)
         }
         else{
             console.log(incomeInfo)
@@ -20,11 +20,15 @@ const addIncomeController = async (req,res) =>{
     else{
         const year = currentDate.getFullYear();
         const month = req.body.month.toString().padStart(2, '0');
-        const newExpenseDate = new Date(`${year}-${month}-02`);
-        const newIncome = await addIncomeInfo(req.body.listName, null, req.body.totalIncome, newExpenseDate)
+        const newExpenseDate = new Date(`${year}-${month}-0-15`);
+        const newIncome = await addIncomeInfo(req.body.listName, null, req.body.totalIncome,true, newExpenseDate)
         
         res.json(newIncome)
     }
+}
+
+const updatePaidController = async(req,res) =>{
+    res.json(await updatePaid(req.body._id))
 }
 
 const deleteIncomeController = async (req,res) =>{
@@ -70,4 +74,4 @@ const getSpecificMonthFinance = async(req,res) =>{
 
 
 
-module.exports = {addIncomeController,getMonthlyFinance, getSpecificMonthFinance, addExpenseController, deleteIncomeController, deleteExpenseController}
+module.exports = {addIncomeController,getMonthlyFinance, getSpecificMonthFinance, addExpenseController, deleteIncomeController, deleteExpenseController, updatePaidController}

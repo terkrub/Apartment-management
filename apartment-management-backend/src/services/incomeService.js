@@ -1,16 +1,20 @@
 const mongoose = require('mongoose');
 const Income = require('../models/income')
 
-const addIncomeInfo = async (roomNumber, IncomeInfo,TotalIncome, date) => {
+const addIncomeInfo = async (roomNumber, IncomeInfo,TotalIncome, paid, date) => {
     const IncomeBill = new Income({
       'title': roomNumber,
       'IncomeInfo': IncomeInfo,
       'TotalIncome': TotalIncome,
-      'paid': false,
+      'paid': paid,
       'date': date
     })
   
     return IncomeBill.save()
+}
+
+const updatePaid = async(id) =>{
+  return await Income.findOneAndUpdate({_id: id}, {paid: true}, {new: true})
 }
 
 const deleteIncome = async (__id) => {
@@ -69,7 +73,7 @@ const getSpecificMonthIncome =async(month) =>{
   const endDate = new Date(currentYear, month, 0);
   const incomeData = await Income.aggregate([
     { $match: { date: { $gte: startDate, $lte: endDate } } },
-    { $project: { title: 1, TotalIncome: 1, date: 1 } }
+    { $project: { title: 1, TotalIncome: 1, date: 1, paid:1 } }
   ]);
 
   return incomeData
@@ -79,4 +83,4 @@ const getSpecificMonthIncome =async(month) =>{
  
   
 
-module.exports = {addIncomeInfo, getIncomeInfo, updateIncome, getMonthlyIncomeInfo, getSpecificMonthIncome, deleteIncome}
+module.exports = {addIncomeInfo, getIncomeInfo, updateIncome, getMonthlyIncomeInfo, getSpecificMonthIncome, deleteIncome, updatePaid}
