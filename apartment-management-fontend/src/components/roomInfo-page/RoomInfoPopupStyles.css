@@ -13,11 +13,11 @@
 .popup-content {
     background-color: white;
     margin-top: 50px;
-    margin-left: 10%;
+    margin-left: 5%;
     padding: 20px;
     height: 50%;
     width: 50%;
-    min-width: 300px;
+    min-width: 350px;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     overflow: auto;
