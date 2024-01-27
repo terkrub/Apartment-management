@@ -29,6 +29,8 @@ const addIncomeController = async (req,res) =>{
 
 const deleteIncomeController = async (req,res) =>{
     await deleteIncome(req.body.__id)
+
+    res.json({Status:"Success"})
 }
 
 const addExpenseController = async (req,res) =>{
