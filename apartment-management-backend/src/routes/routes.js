@@ -5,7 +5,7 @@ const authenController = require('../controllers/authenController')
 const loginController = require('../controllers/loginController')
 const { getMeterInfoController, addMeterInfoController } = require('../controllers/meterInfoController')
 const authenMiddleware = require('../middleware/authenMiddleware')
-const {addIncomeController, getMonthlyFinance, getSpecificMonthFinance, addExpenseController, deleteIncomeController} = require('../controllers/financeController')
+const {addIncomeController, getMonthlyFinance, getSpecificMonthFinance, addExpenseController, deleteIncomeController, deleteExpenseController} = require('../controllers/financeController')
 
 router.post("/Login", loginController)
 router.get("/Authen", authenController)
@@ -19,6 +19,7 @@ router.post("/updatePrice",authenMiddleware, updateRoomPrceController)
 router.post("/monthly-finance", authenMiddleware, getMonthlyFinance)
 router.post("/specific-month-finance", authenMiddleware, getSpecificMonthFinance)
 router.post("/delete-income", authenMiddleware,deleteIncomeController)
+router.post("/delete-expense", authenMiddleware,deleteExpenseController)
 
 
 module.exports = router;

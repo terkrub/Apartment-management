@@ -36,6 +36,13 @@ const addExpenseInfo = async (title,TotalExpense, date) => {
   
     return newExpense.save()
 }
-  
 
-module.exports = {getMonthlyExpenseInfo, getSpecificMonthExpense, addExpenseInfo}
+const deleteExpense = async (__id) => {
+  try {
+    await expense.findByIdAndDelete(__id);
+  } catch (error) {
+    console.error("Error deleting income:", error);
+  }
+  
+}
+module.exports = {getMonthlyExpenseInfo, getSpecificMonthExpense, addExpenseInfo, deleteExpense}
