@@ -20,7 +20,7 @@ const addIncomeController = async (req,res) =>{
     else{
         const year = currentDate.getFullYear();
         const month = req.body.month.toString().padStart(2, '0');
-        const newExpenseDate = new Date(`${year}-${month}-0-15`);
+        const newExpenseDate = new Date(`${year}-${month}-0-09`);
         const newIncome = await addIncomeInfo(req.body.listName, null, req.body.totalIncome,true, newExpenseDate)
         
         res.json(newIncome)
