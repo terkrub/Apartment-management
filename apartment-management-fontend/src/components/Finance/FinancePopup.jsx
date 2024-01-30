@@ -71,23 +71,24 @@ const FinanceInfoPopup = ({month, setMonthSelected, fetchFinanceData}) => {
   };
 
   const handleDeletedIncome =(item) =>{
-    const token = localStorage.getItem('token')
-    
-    axios.post('/delete-income', {__id: item._id}, {
-      headers: {
-          'Content-Type':'application/json',
-          'Authorization': `Bearer ${token}`
-      },
-      withCredentials: true
-      }).then(res => {
-        fetchSpecificMonthFinance()
-        fetchFinanceData()  
-      })
-      .catch(err => console.error(err))
-  }
-
+    if (window.confirm(`ยืนยันการลบ: ${item.title}` )) {
+      const token = localStorage.getItem('token')
+      
+      axios.post('/delete-income', {__id: item._id}, {
+        headers: {
+            'Content-Type':'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        withCredentials: true
+        }).then(res => {
+          fetchSpecificMonthFinance()
+          fetchFinanceData()  
+        })
+        .catch(err => console.error(err))
+      }
+    }
   const handleDeletedExpense =(item) =>{
-    console.log(item)
+    if (window.confirm(`ยืนยันการลบ: ${item.title}` )) {
     const token = localStorage.getItem('token')
 
     axios.post('/delete-expense', {__id: item._id}, {
@@ -101,6 +102,7 @@ const FinanceInfoPopup = ({month, setMonthSelected, fetchFinanceData}) => {
         fetchFinanceData()  
       })
       .catch(err => console.error(err))
+    }
   }
 
   const handleUpdatePaid =(item) =>{

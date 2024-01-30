@@ -21,7 +21,7 @@ const OverallStatus = ()=>{
             <div className="profitStat">
                 <Icon.ProfitIcon/>
                 <div>
-                    <span>กำไร</span>
+                    <span>คงเหลือ</span>
                     <a>xxx บาท</a>
                 </div>
             </div>

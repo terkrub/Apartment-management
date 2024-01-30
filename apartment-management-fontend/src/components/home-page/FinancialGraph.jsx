@@ -72,7 +72,7 @@ const FinancialGraph = ({ data, fetchFinanceData }) => {
                 borderWidth: 1
             },
             {
-                label: 'กำไร',
+                label: 'คงเหลือ',
                 data: data.map(d => d.profit),
                 backgroundColor: '#01BFFB',
                 borderColor: '#01BFFB',
