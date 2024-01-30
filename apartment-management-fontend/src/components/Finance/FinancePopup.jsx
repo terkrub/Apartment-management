@@ -11,6 +11,11 @@ const FinanceInfoPopup = ({month, setMonthSelected, fetchFinanceData}) => {
   const [newExpense, setNewExpense] = useState({ title: '', TotalExpense: 0 });
   const months_th_mini = [ "ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค." ];
   
+  const extractNumber = (title) => {
+    const match = title.match(/\d+$/);
+    return match ? parseInt(match[0], 10) : null;
+  };
+
   const fetchSpecificMonthFinance=()=>{
     const token = localStorage.getItem('token')
         axios.post('/specific-month-finance',{ month },{
@@ -21,9 +26,17 @@ const FinanceInfoPopup = ({month, setMonthSelected, fetchFinanceData}) => {
             withCredentials: true
         })
           .then(res => {
-            setIncomeData(res.data.incomeData)
+            const sortedIncomeData = res.data.incomeData.sort((a, b) => {
+              const numA = extractNumber(a.title);
+              const numB = extractNumber(b.title);
+        
+              if (numA === null) return 1; // Put entries without numbers at the end
+              if (numB === null) return -1;
+              return numA - numB; // Sort by extracted number
+            });
+            setIncomeData(sortedIncomeData);
             setExpenseData(res.data.expenseData)
-            console.log(incomeData)
+            console.log(res.data)
           })
           .catch(err => console.error(err))
   }
