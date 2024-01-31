@@ -80,7 +80,8 @@ const GenerateBill = ({ billOption ,roomInfo, pdfContentRef, billItems}) => {
             </h3>
         </div>
         
-
+        {billOption!=="ใบแจ้ง/ใบเสร็จคืนค่าประกันห้อง"&&
+          
         <div style={GenerateBillStyles['paymentInfo-container']}>
           <div style={GenerateBillStyles['info-container']}>
             <h3 style={GenerateBillStyles['info-container h3']}>***หมายเหตุ***</h3>
@@ -89,11 +90,13 @@ const GenerateBill = ({ billOption ,roomInfo, pdfContentRef, billItems}) => {
             <h3 style={GenerateBillStyles['info-container h3']}>ธนาคาร กสิกรไทย</h3>
             <h3 style={GenerateBillStyles['info-container h3']}>ชำระไม่เกินวันที่ 5 ของเดือนเกินกำหนดปรับวันละ 100 บาท</h3>
           </div>
+        
 
           <div style={GenerateBillStyles['QRcode-container']}>
             <img style={GenerateBillStyles['QRcode-container .QRcode']} src={require('../../img/QRCodePayment.png')}  alt="QRcode"/>
           </div>
         </div>
+        }
         
       </div>
       

@@ -2,6 +2,7 @@
     border-radius: 10px;
     width: 50%;
     height: 80%;
+    min-height: 800px;
     overflow: auto;
     background-color: #fff;
     margin-left: 5%;
