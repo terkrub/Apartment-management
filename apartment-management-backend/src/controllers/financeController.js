@@ -6,7 +6,6 @@ const expense = require('../models/expense');
 const addIncomeController = async (req,res) =>{
     const currentDate = new Date();
     
-    console.log(req.body)
     if(req.body.title === "roomIncome"){
         const incomeInfo = await getIncomeInfo(req.body.listName,currentDate)
         if(incomeInfo.length === 0){
@@ -40,11 +39,18 @@ const deleteIncomeController = async (req,res) =>{
 
 const addExpenseController = async (req,res) =>{
     const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = req.body.month.toString().padStart(2, '0'); // Ensure month is two digits
-    const newExpenseDate = new Date(`${year}-${month}-02`);
-    const newExpense = await addExpenseInfo(req.body.title, req.body.TotalExpense, newExpenseDate)
-    res.json(newExpense)
+    if(req.body.title === "roomReturn"){
+        const newExpense = await addExpenseInfo(req.body.listName, req.body.expenseInfo, req.body.totalReturn, currentDate)
+        res.json(newExpense)
+    }
+    else{
+        const year = currentDate.getFullYear();
+        const month = req.body.month.toString().padStart(2, '0'); // Ensure month is two digits
+        const newExpenseDate = new Date(`${year}-${month}-02`);
+        const newExpense = await addExpenseInfo(req.body.title, null, req.body.TotalExpense, newExpenseDate)
+        res.json(newExpense)
+    }
+    
 }
 
 const deleteExpenseController = async (req,res) =>{

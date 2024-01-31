@@ -27,9 +27,10 @@ const getSpecificMonthExpense =async(month) =>{
   
 }
 
-const addExpenseInfo = async (title,TotalExpense, date) => {
+const addExpenseInfo = async (title,expenseInfo,TotalExpense, date) => {
     const newExpense = new expense({
       'title': title,
+      'expenseInfo': expenseInfo,
       'TotalExpense': TotalExpense,
       'date': date
     })
