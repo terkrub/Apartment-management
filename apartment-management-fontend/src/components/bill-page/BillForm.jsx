@@ -3,9 +3,9 @@ import './BillFormStyles.css';
 import Dropdown from '../Dropdown.jsx';
 import axios from '../../api/axios.jsx'
 
-const BillForm = ({generatePdf, handlegenerateBill, otherBill ,setOtherBill, setCurrentMeter, setLastMeter, setRoomInfo, setRoomPrice, roomPrice }) => {
+const BillForm = ({billOption,setBillOption, generatePdf, handlegenerateBill, otherBill ,setOtherBill, setCurrentMeter, setLastMeter, setRoomInfo, setRoomPrice, roomPrice }) => {
   const options = Array.from({ length: 30 }, (_, i) => (i < 10 ? 101 : i < 20 ? 201 : 301) + (i % 10));
-  const billListNames = ['ค่าน้ำ ค่าไฟ', 'ค่าเช่าห้อง', 'อื่นๆ']
+  const [billListNames, setbillListNames] = useState([])
   const [selectedOption, setSelectedOption] = useState('');
   const [lastElectricMeter, setLastEletricMeter] = useState('');
   const [lastWaterMeter, setLastWaterMeter] = useState('');
@@ -17,7 +17,14 @@ const BillForm = ({generatePdf, handlegenerateBill, otherBill ,setOtherBill, set
   const [otherBillTitle, setOtherBillTitle] = useState('');
   const [otherBillUnit, setOtherBillUnit] = useState('');
   const [otherBillPricePerUnit, setOtherBillPricePerUnit] = useState('');
-
+  useEffect(()=>{
+    if(billOption==="ใบเเจ้งหนี้/ใบเสร็จรับเงิน"){
+      setbillListNames(['ค่าน้ำ ค่าไฟ', 'ค่าเช่าห้อง', 'อื่นๆ'])
+    }
+    else{
+      setbillListNames(['ค่าน้ำ ค่าไฟ', 'อื่นๆ'])
+    }
+  },[billOption])
   useEffect(() => {
     if (!selectedOption) return;  
     const token = localStorage.getItem('token');
@@ -66,6 +73,11 @@ const BillForm = ({generatePdf, handlegenerateBill, otherBill ,setOtherBill, set
 
   const handleSelect = (option) => {
     setSelectedOption(option);
+  }
+
+  const handleSelectBillOption=(Option)=>{
+    setBillOption(Option)
+    console.log(billOption)
   }
 
   const handleSubmit=(e)=>{
@@ -133,9 +145,17 @@ const BillForm = ({generatePdf, handlegenerateBill, otherBill ,setOtherBill, set
   return (
     <div className='meterForm-container'>
       <form onSubmit={handleSubmit}>
-        <label>เลือกห้อง:</label>
-        <Dropdown id="dropdown" options={options} onSelect={handleSelect} title={"เลือกห้อง"}/>
+      <label>เลือกประเภทบิล:</label>
+        <Dropdown id="dropdown" options={["ใบเเจ้งหนี้/ใบเสร็จรับเงิน","ใบแจ้ง/ใบเสร็จคืนค่าประกันห้อง"]} onSelect={handleSelectBillOption} title={"ประเภทบิล"}/>
         <input type="hidden" name="selectedOption" value={selectedOption}/>
+        {billOption&&
+          <>
+            <label>เลือกห้อง:</label>
+            <Dropdown id="dropdown" options={options} onSelect={handleSelect} title={"เลือกห้อง"}/>
+            <input type="hidden" name="selectedOption" value={selectedOption}/>
+          </>
+        }
+        
       {selectedOption && (
         <>
          <label>รายการ:</label>

@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import GenerateBillStyles from './GenerateBillStyle.jsx';
 
 
 
 
-const GenerateBill = ({ currentMeter, lastMeter , roomInfo, pdfContentRef, billItems}) => {
+const GenerateBill = ({ billOption ,roomInfo, pdfContentRef, billItems}) => {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
   var yyyy = today.getFullYear();
 
   today = dd + '/' + mm + '/' + yyyy;
+
+  const [totalAmount, setTotalAmount] = useState(null)
+
+  useEffect(()=>{
+    const deductionIndex = billItems.findIndex(item => item.list === 'หัก');
+
+    const totalBeforeDeduction = billItems.slice(0, deductionIndex)
+      .reduce((total, item) => total + (item.amount || 0), 0);
+  
+    const totalAfterDeduction = billItems.slice(deductionIndex + 1)
+      .reduce((total, item) => total + (item.amount || 0), 0);
+    
+    setTotalAmount(totalBeforeDeduction - totalAfterDeduction)
+  },[billItems])
 
   return (
     <div style={GenerateBillStyles.billcontainer}>
@@ -19,7 +33,7 @@ const GenerateBill = ({ currentMeter, lastMeter , roomInfo, pdfContentRef, billI
           <img style={GenerateBillStyles['billcontainer .logo']} className='logo' src={require('../../img/Laithonghouse-logo-RM-BG.png')}  alt="Logo"/>
         </div>
 
-        <h2 style={GenerateBillStyles['billcontainer h2']}>ใบเเจ้งหนี้/ใบเสร็จรับเงิน</h2>
+        <h2 style={GenerateBillStyles['billcontainer h2']}>{billOption}</h2>
         <h3 style={GenerateBillStyles['billcontainer h3']}>ลายทองเฮ้าส์</h3>
         <p style={GenerateBillStyles['billcontainer p']}>358 หมู่ 15 ตำบลสามพร้าว อำเภอเมืองอุดรธานี จังหวัดอุดรธานี 41000 <br/>โทร. 0818275520 Email tertarkitty@hotmail.com ID Line tertarkitty</p>
 
@@ -46,7 +60,7 @@ const GenerateBill = ({ currentMeter, lastMeter , roomInfo, pdfContentRef, billI
 
         {billItems.map((item,index) => (
           <div  key={index} style={GenerateBillStyles['titleInfo-container']}>
-            <p style={GenerateBillStyles['titleInfo-container .list']}>{item.list}</p>
+            {item.list==="หัก"? <h4 style={GenerateBillStyles['titleInfo-container .deduct']}>{item.list}</h4>:<p style={GenerateBillStyles['titleInfo-container .list']}>{item.list}</p>}
             <p style={GenerateBillStyles['titleInfo-container .Meter']}>{item.meterPrevious}</p>
             <p style={GenerateBillStyles['titleInfo-container .Meter']}>{item.meterCurrent}</p>
             <p style={GenerateBillStyles['titleInfo-container .unit']}>{item.unit}</p>
@@ -56,13 +70,13 @@ const GenerateBill = ({ currentMeter, lastMeter , roomInfo, pdfContentRef, billI
         ))}
 
         <div style={GenerateBillStyles['titleInfo-container']}>
-            <h3 style={GenerateBillStyles['titleInfo-container .total']}>ยอดรวม</h3>
+            <h3 style={GenerateBillStyles['titleInfo-container .total']}>{billOption==="ใบแจ้ง/ใบเสร็จคืนค่าประกันห้อง"?"คงเหลือ":"ยอดรวม"}</h3>
             <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
             <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
             <p style={GenerateBillStyles['titleInfo-container .unit']}></p>
             <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
             <h3 style={GenerateBillStyles['titleInfo-container .totalAmount']}>
-              {billItems.reduce((total, item) => total + (item.amount || 0), 0)}
+            {billOption==="ใบแจ้ง/ใบเสร็จคืนค่าประกันห้อง"? totalAmount:billItems.reduce((total, item) => total + (item.amount || 0), 0)}
             </h3>
         </div>
         

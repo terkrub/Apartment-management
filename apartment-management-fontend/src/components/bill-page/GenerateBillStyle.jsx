@@ -91,6 +91,17 @@ const GenerateBillStyles = Styling(`
     padding: 0; 
   }
 
+  .titleInfo-container .deduct{
+    background-color: #fff;
+    border: 1px solid black;
+    width:400px;
+    height: 20px;
+    font-size: 15px;
+    margin: 0;
+    padding: 0; 
+    color: red;
+  }
+
   .titleInfo-container .total{
     background-color: #fff;
     border: 1px solid black;
