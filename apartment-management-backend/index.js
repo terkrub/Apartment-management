@@ -7,8 +7,6 @@ const router = require('./src/routes/routes');
 require('./src/db');
 const app = express();
 
-app.use(cors({credentials: true,
-  origin: true,}));
 app.use(express.static(path.join(__dirname, '..', 'apartment-management-fontend', 'build')));
 
 app.use(bodyParser.json());
