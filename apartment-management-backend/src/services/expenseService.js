@@ -22,7 +22,7 @@ const getSpecificMonthExpense =async(month) =>{
       { $match: { date: { $gte: startDate, $lte: endDate } } },
       { $project: { title: 1, TotalExpense: 1, date: 1 } }
     ]);
-  
+    console.log(expenseData)
     return expenseData
   
 }
