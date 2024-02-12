@@ -32,7 +32,6 @@ const addMeterInfoController = async(req,res) =>{
         await updateMeterInfo(req.body.currentMeter)
         res.json({status: "Success"})
     }
-
     /*
     const current_meter = await getCurrentMeterInfo(req.body.roomNumber)
     if(!current_meter){
