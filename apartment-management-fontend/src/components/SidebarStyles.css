@@ -1,21 +1,29 @@
-.sidebarContainer{
-    height: 100dvh;
+.sidebarContainer {
+    height: 100vh;
     width: 15%;
     background-color: #2F2F2E;
     min-width: 250px;
+    display: flex; 
+    flex-direction: column;
 }
 
 .logoContainer{
     width: 100%;
     display: flex;
     align-items: center;
-
     height: 20%;
+    margin-top: 5%;
 }
 
 .sidebarContainer img{
     height: 100%;
     width: 80%;
+}
+
+.form-logo-resort{
+    background-color: #ffff;
+    border-radius: 10px;
+    margin-left: 9%;
 }
 
 .sidebar-selected{
@@ -35,7 +43,7 @@
 
 .sidebar{
     margin-top: 5%;
-
+    
     list-style-type: none;
     height: 3em;
     border-radius: 10px 0px 0px 10px;
@@ -57,6 +65,33 @@
     width: 300%;
     font-size: 1.2em;
     font-weight: bolder;
+}
+
+.chnageBranchContainer {
+    width: 100%;
+    height: 10%;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.chnageBranchContainer a{
+    width: 80%;
+
+    border-radius: 5px;
+    margin-top: 5%;
+    background-color: aqua;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    padding: 5px;
+    
+}
+
+.chnageBranchContainer h3{
+    color: #ffff;
 }
 
 

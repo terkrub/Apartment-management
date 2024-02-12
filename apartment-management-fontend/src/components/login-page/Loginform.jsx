@@ -7,25 +7,24 @@ const Loginform = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate()
-    localStorage.removeItem('token')
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        try{
+
             axios.post('/Login',JSON.stringify({ username: username, password: password }),
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
             }).then(res=>{
                 if(res.data.status ==="Success"){
+                    console.log(res.data.token)
                     localStorage.setItem('token',res.data.token)
-                    navigate("/")
+                    console.log(localStorage.getItem('token'))
+                    navigate("/selectBranch")
                 }
             })
            
-        }catch{
-            console.log("error")
-        }
+
     };
 
   return (
