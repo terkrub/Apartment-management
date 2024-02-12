@@ -3,7 +3,7 @@ import './RoomInfoTableStyles.css'
 import RoomInfoPopup from './RoomInfoPopup';
 
 const sampleData = new Array(30).fill(null).map((_, index) => ({
-  id: 101 + index,
+  id: "A01",
   name: `ชนิดานุช ${index + 1}`,
   phoneNumber: '0952204' + (450 + index).toString().padStart(3, '0'),
   entryDate: `07/12/2022`,
@@ -18,9 +18,10 @@ const ITEMS_PER_PAGE = 10;
 
 const RoomInfoTable = ({data, onDataChange}) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [dataToShow, setDataToShow] = useState(data.slice(0, ITEMS_PER_PAGE));
+  const [dataToShow, setDataToShow] = useState([]);
   const [editItem, setEditItem] = useState(null)
-
+  const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
+  
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
     const startIndex = (newPage - 1) * ITEMS_PER_PAGE;
@@ -35,10 +36,32 @@ const RoomInfoTable = ({data, onDataChange}) => {
     setEditItem(null)
   }
 
-  useEffect(()=>{
-    setDataToShow(data.slice(0, ITEMS_PER_PAGE));
-    setCurrentPage(1);
-  },[data])
+  const alphanumericSort = (a, b) => {
+    const regex = /(\D+)(\d+)/;
+    const matchA = a.roomNumber.match(regex);
+    const matchB = b.roomNumber.match(regex);
+
+    if (matchA && matchB) {
+      const [_, lettersA, numberA] = matchA;
+      const [__, lettersB, numberB] = matchB;
+
+      if (lettersA === lettersB) {
+        return parseInt(numberA) - parseInt(numberB);
+      }
+
+      return lettersA.localeCompare(lettersB);
+    }
+
+    return a.roomNumber.localeCompare(b.roomNumber);
+  };
+
+  useEffect(() => {
+    const sorted = [...data].sort(alphanumericSort);
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    setDataToShow(sorted.slice(startIndex, startIndex + ITEMS_PER_PAGE));
+  }, [data, currentPage]);
+
+
 
   return (
     <div className='tableContainer'>
@@ -75,14 +98,14 @@ const RoomInfoTable = ({data, onDataChange}) => {
             </tbody>
         </table>
         <div className="pagination">
-            {Array.from({ length: Math.ceil(sampleData.length / ITEMS_PER_PAGE) }, (_, index) => (
-            <button
+        {Array.from({ length: totalPages }, (_, index) => (
+              <button
                 key={index}
                 onClick={() => handlePageChange(index + 1)}
                 disabled={currentPage === index + 1}
-            >
+              >
                 {index + 1}
-            </button>
+              </button>
             ))}
         </div>
         {editItem && (<RoomInfoPopup roomData={editItem} handleCancel={handleCancel}/>)}

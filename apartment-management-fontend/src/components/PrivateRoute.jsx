@@ -7,12 +7,14 @@ const PrivateRoute = ({Component: Component}) => {
     
     useEffect(() => {
         const token = localStorage.getItem('token');
+        const branch = localStorage.getItem('branch');
         if (!token) {
             setIsAuthenticated(false);
             return;
         }
+        
 
-        axios.get('/Authen', {
+        axios.post('/Authen', {
             headers: {
                 'Content-Type':'application/json',
                 'Authorization': `Bearer ${token}`
@@ -20,6 +22,7 @@ const PrivateRoute = ({Component: Component}) => {
             withCredentials: true
         })
         .then(res => {
+            console.log(res.data)
             setIsAuthenticated(res.data.isAuthenticated)
         })
         .catch(error => {

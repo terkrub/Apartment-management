@@ -4,7 +4,15 @@ import Dropdown from '../Dropdown.jsx';
 import axios from '../../api/axios.jsx'
 
 const BillForm = ({billOption,setBillOption, generatePdf, handlegenerateBill, otherBill ,setOtherBill, setCurrentMeter, setLastMeter, setRoomInfo, setRoomPrice, roomPrice }) => {
-  const options = Array.from({ length: 30 }, (_, i) => (i < 10 ? 101 : i < 20 ? 201 : 301) + (i % 10));
+  const branch = localStorage.getItem('branch') === "LaithongResort";
+const options = branch 
+    ? Array.from({ length: 32 }, (_, i) => {
+        let prefix = i < 16 ? 'A' : 'B';
+        let number = i % 16 + 1;
+        return `${prefix}${number}`;
+    })
+    : Array.from({ length: 30 }, (_, i) => (i < 10 ? 101 : i < 20 ? 201 : 301) + (i % 10));
+
   const [billListNames, setbillListNames] = useState([])
   const [selectedOption, setSelectedOption] = useState('');
   const [lastElectricMeter, setLastEletricMeter] = useState('');
@@ -27,12 +35,10 @@ const BillForm = ({billOption,setBillOption, generatePdf, handlegenerateBill, ot
   },[billOption])
   useEffect(() => {
     if (!selectedOption) return;  
-    const token = localStorage.getItem('token');
     
     axios.post('/MeterInfo', { roomNumber: selectedOption }, { 
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
       },
       withCredentials: true
     })
