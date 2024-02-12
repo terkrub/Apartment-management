@@ -8,6 +8,7 @@ import Maintainpage from './Maintainpage';
 import BillPage from './BillPage';
 import Loginpage from './Loginpage';
 import PrivateRoute from './components/PrivateRoute';
+import ChangeBranch from './ChangeBranch';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -15,6 +16,7 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<PrivateRoute Component={Homepage}/>}/>
+      <Route path="/selectBranch" element={<PrivateRoute Component={ChangeBranch}/>}/>
       <Route path="/roomInfo" element={<PrivateRoute Component={RoomInfopage}/>}/>
       <Route path="/maintenance" element={<PrivateRoute Component={Maintainpage}/>}/>
       <Route path="/bill" element={<PrivateRoute Component={BillPage}/>}/>

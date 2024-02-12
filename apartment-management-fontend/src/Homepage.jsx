@@ -6,7 +6,6 @@ import axios from "./api/axios.jsx"
 
 const Homepage=()=>{
     const [financialData, setFinancialData] = useState([]);
-
     const fetchFinanceData=()=>{
         const token = localStorage.getItem('token')
         axios.post('/monthly-finance',{ roomNumber: null },{
@@ -21,10 +20,10 @@ const Homepage=()=>{
           })
           .catch(err => console.error(err))
     }
-
+    
     useEffect(() => {
         fetchFinanceData()
-      }, []);
+      },[]);
 
     return(
         <div className="App">
@@ -35,6 +34,7 @@ const Homepage=()=>{
                 <OverallStatus/>
                 <FinancialGraph data={financialData} fetchFinanceData={fetchFinanceData}/>
             </section>
+    
         </div>
     )
 }
