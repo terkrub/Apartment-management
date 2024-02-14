@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import html2pdf from 'html2pdf.js';
 import './RoomInfoTableStyles.css'
 import RoomInfoPopup from './RoomInfoPopup';
+import GenerateTenancy from '../tenancyAgreement/GenerateTenancy';
 
 const sampleData = new Array(30).fill(null).map((_, index) => ({
   id: "A01",
@@ -20,7 +22,9 @@ const RoomInfoTable = ({data, onDataChange}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [dataToShow, setDataToShow] = useState([]);
   const [editItem, setEditItem] = useState(null)
+  const [generateItem, setGenerateItem] = useState(null)
   const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
+  const pdfContentRef = useRef(null);
   
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -30,6 +34,12 @@ const RoomInfoTable = ({data, onDataChange}) => {
 
   const handleEdit = (item) => {
     setEditItem(item);
+  }
+
+  const handleGenerate = (item) => {
+    setGenerateItem(item);
+    console.log(item)
+    generatePdf(item.roomNumber)
   }
 
   const handleCancel = () => {
@@ -60,6 +70,20 @@ const RoomInfoTable = ({data, onDataChange}) => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     setDataToShow(sorted.slice(startIndex, startIndex + ITEMS_PER_PAGE));
   }, [data, currentPage]);
+
+  const generatePdf = (roomNumber) => {
+    const date = new Date();
+    const formattedDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+        const options = {
+          margin: [10, 5, 10, 5],
+          filename: `${roomNumber}-${formattedDate}.pdf`,
+          image: { type: 'jpeg', quality: 1 },
+          html2canvas: { dpi: 192, scale: 2 },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        };
+    
+        return html2pdf().from(pdfContentRef.current).set(options).save();
+  };
 
 
 
@@ -92,6 +116,7 @@ const RoomInfoTable = ({data, onDataChange}) => {
                     <td>{item.totalDeposit}</td>
                     <td>
                     <button className='editBtn' onClick={() => handleEdit(item)}>แก้ไข</button>
+                    <button className='genrateBtn' onClick={() => handleGenerate(item)}>ออกใบจองห้อง</button>
                     </td>
                 </tr>
                 ))}
@@ -109,6 +134,9 @@ const RoomInfoTable = ({data, onDataChange}) => {
             ))}
         </div>
         {editItem && (<RoomInfoPopup roomData={editItem} handleCancel={handleCancel}/>)}
+        <div style={{ display: 'none' }}>
+                <GenerateTenancy pdfContentRef={pdfContentRef} roomInfo={generateItem}/>
+        </div>
     </div>
   );
 };
