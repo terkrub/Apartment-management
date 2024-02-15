@@ -3,6 +3,7 @@ import html2pdf from 'html2pdf.js';
 import './RoomInfoTableStyles.css'
 import RoomInfoPopup from './RoomInfoPopup';
 import GenerateTenancy from '../tenancyAgreement/GenerateTenancy';
+import axios from '../../api/axios';
 
 const sampleData = new Array(30).fill(null).map((_, index) => ({
   id: "A01",
@@ -37,6 +38,7 @@ const RoomInfoTable = ({data, onDataChange}) => {
   }
 
   const handleGenerate = (item) => {
+    const token = localStorage.getItem('token');
     setGenerateItem(item);
     const listName = `ค่าจองห้อง: ${item.roomNumber}`
     axios.post('/addIncome', {title: "roomIncome",listName: listName,finalBill: null ,totalIncome: 1000}, {
