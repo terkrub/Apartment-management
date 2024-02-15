@@ -38,7 +38,17 @@ const RoomInfoTable = ({data, onDataChange}) => {
 
   const handleGenerate = (item) => {
     setGenerateItem(item);
-    console.log(item)
+    const listName = `ค่าจองห้อง: ${item.roomNumber}`
+    axios.post('/addIncome', {title: "roomIncome",listName: listName,finalBill: null ,totalIncome: 1000}, {
+      headers: {
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${token}`
+      },
+      withCredentials: true
+      })
+      .then(res => {
+      })
+      .catch(err => console.error(err))
     generatePdf(item.roomNumber)
   }
 

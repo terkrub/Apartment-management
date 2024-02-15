@@ -16,6 +16,7 @@ const BillPage=()=>{
     const [finalBill,setFinalBill]= useState([])
     const [billOption, setBillOption] = useState(null)
     const pdfContentRef = useRef(null);
+    const branch = localStorage.getItem('branch') === "LaithongResort";
 
     useEffect(() => {
       const calculateWaterCharge = () => {
@@ -33,7 +34,7 @@ const BillPage=()=>{
         meterPrevious: lastMeter ? lastMeter.WaterMeter : '',
         meterCurrent: currentMeter ? currentMeter.WaterMeter : '',
         unit: currentMeter && lastMeter ? currentMeter.WaterMeter - lastMeter.WaterMeter : '',
-        pricePerUnit: 18,
+        pricePerUnit: branch?25:18,
         amount: calculateWaterCharge(),
       };
     
