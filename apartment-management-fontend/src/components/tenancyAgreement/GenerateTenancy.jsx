@@ -107,14 +107,14 @@ const GenerateTenancy = ({roomInfo, pdfContentRef}) => {
             <h3 style={GenerateBillStyles['info-container h3']}>***หมายเหตุ***</h3>
             <h3 style={GenerateBillStyles['info-container h3']}>***ถ้าเลยกำหนดวันย้ายเข้าผู้จองยังไม่มาทำสัญญาจะถูกยึดเงินประกัน***</h3>
             <h3 style={GenerateBillStyles['info-container h3']}>กรุณาโอนเงินเข้า บัญชี นางสาวกนกภรณ์ อักษร</h3>
-            <h3 style={GenerateBillStyles['info-container h3']}>683-2-09743-6</h3>
-            <h3 style={GenerateBillStyles['info-container h3']}>ธนาคาร กสิกรไทย</h3>
+            <h3 style={GenerateBillStyles['info-container h3']}>{branch?"066-2-25385-5":"683-2-09743-6"}</h3>
+            <h3 style={GenerateBillStyles['info-container h3']}>ธนาคาร {branch?"ttb":"กสิกรไทย"}</h3>
             <h3 style={GenerateBillStyles['info-container h3']}>ชำระไม่เกินวันที่ 5 ของเดือนเกินกำหนดปรับวันละ 100 บาท</h3>
           </div>
         
 
           <div style={GenerateBillStyles['QRcode-container']}>
-            <img style={GenerateBillStyles['QRcode-container .QRcode']} src={require('../../img/QRCodePayment.png')}  alt="QRcode"/>
+            <img style={GenerateBillStyles['QRcode-container .QRcode']} src={branch?require('../../img/SecondbranchQRCodePayment.jpg'):require('../../img/QRCodePayment.png')}  alt="QRcode"/>
           </div>
         </div>
         
