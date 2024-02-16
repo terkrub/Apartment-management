@@ -29,6 +29,9 @@ const options = branch
     if(billOption==="ใบเเจ้งหนี้/ใบเสร็จรับเงิน"){
       setbillListNames(['ค่าน้ำ ค่าไฟ', 'ค่าเช่าห้อง', 'อื่นๆ'])
     }
+    else if(billOption==="บิลแรกเข้า"){
+      setbillListNames(['ค่าเช่าห้อง'])
+    }
     else{
       setbillListNames(['ค่าน้ำ ค่าไฟ', 'อื่นๆ'])
     }
@@ -152,7 +155,7 @@ const options = branch
     <div className='meterForm-container'>
       <form onSubmit={handleSubmit}>
       <label>เลือกประเภทบิล:</label>
-        <Dropdown id="dropdown" options={["ใบเเจ้งหนี้/ใบเสร็จรับเงิน","ใบแจ้ง/ใบเสร็จคืนค่าประกันห้อง"]} onSelect={handleSelectBillOption} title={"ประเภทบิล"}/>
+        <Dropdown id="dropdown" options={["ใบเเจ้งหนี้/ใบเสร็จรับเงิน","ใบแจ้ง/ใบเสร็จคืนค่าประกันห้อง","บิลแรกเข้า"]} onSelect={handleSelectBillOption} title={"ประเภทบิล"}/>
         <input type="hidden" name="selectedOption" value={selectedOption}/>
         {billOption&&
           <>
@@ -175,9 +178,6 @@ const options = branch
         </>
       )}
        
-        {!selectedBill&&(
-          <button className='GenerateBillBtn' onClick={generatePdf}>Download</button>
-        )}
 
         {selectedBill === 'ค่าน้ำ ค่าไฟ' &&(
           <>

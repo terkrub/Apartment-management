@@ -77,7 +77,7 @@ const GenerateBill = ({ billOption ,roomInfo, pdfContentRef, billItems}) => {
             <p style={GenerateBillStyles['titleInfo-container .unit']}></p>
             <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
             <h3 style={GenerateBillStyles['titleInfo-container .totalAmount']}>
-            {billOption==="ใบแจ้ง/ใบเสร็จคืนค่าประกันห้อง"? totalAmount:billItems.reduce((total, item) => total + (item.amount || 0), 0)}
+            {(billOption==="ใบแจ้ง/ใบเสร็จคืนค่าประกันห้อง"|| billOption === "บิลแรกเข้า")? totalAmount:billItems.reduce((total, item) => total + (item.amount || 0), 0)}
             </h3>
         </div>
         

@@ -57,7 +57,7 @@ const BillPage=()=>{
       };
 
       const rentalKey = {
-        list: 'ค่าคีย์การ์ด',
+        list: branch?'กุญแจ':'ค่าคีย์การ์ด',
         meterPrevious: '',
         meterCurrent: '',
         unit: roomInfo ? roomInfo.totalKey:0,
@@ -82,11 +82,24 @@ const BillPage=()=>{
         pricePerUnit: '',
         amount: '',
       }
+
+      const bookingFees = {
+        list: 'ค่าจองห้อง',
+        meterPrevious: '',
+        meterCurrent: '',
+        unit: '',
+        pricePerUnit: '',
+        amount: 1000,
+      }
     
       
 
       if (billOption === "ใบแจ้ง/ใบเสร็จคืนค่าประกันห้อง") {
         const meterItems = [rentalDeposit, rentalKey,title,waterItem, electricItem];
+        setMeterItem(meterItems);
+      }
+      else if(billOption === "บิลแรกเข้า"){
+        const meterItems = [rentalItem,rentalDeposit, rentalKey,title,bookingFees];
         setMeterItem(meterItems);
       }
       else{
@@ -117,7 +130,31 @@ const BillPage=()=>{
 
     const handlegenerateBill= async ()=>{
         const token = localStorage.getItem('token');
+        if(billOption==="บิลแรกเข้า"){
+          const deductionIndex = finalBill.findIndex(item => item.list === 'หัก');
 
+          const totalBeforeDeduction = finalBill.slice(0, deductionIndex)
+            .reduce((total, item) => total + (item.amount || 0), 0);
+
+          const totalAfterDeduction = finalBill.slice(deductionIndex + 1)
+            .reduce((total, item) => total + (item.amount || 0), 0);
+          
+          const totalIncome = totalBeforeDeduction - totalAfterDeduction;
+
+          const listName = `เงินเเรกเข้าห้อง: ${roomInfo.roomNumber}`
+
+          axios.post('/addIncome', {title: "roomIncome",listName, finalBill, totalIncome}, {
+            headers: {
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            withCredentials: true
+            })
+            .then(res => {
+            })
+            .catch(err => console.error(err))
+        }
+        else{
         axios.post('/AddMeter', {roomInfo,currentMeter,lastMeter}, {
         headers: {
             'Content-Type':'application/json',
@@ -131,6 +168,7 @@ const BillPage=()=>{
             setRoomInfo(null)
         })
         .catch(err => console.error(err))
+      }
         
         if(billOption==="ใบเเจ้งหนี้/ใบเสร็จรับเงิน"){
           const totalIncome = finalBill.reduce((total, item) => total + (item.amount || 0), 0)
@@ -161,7 +199,7 @@ const BillPage=()=>{
                 .catch(err => console.error(err))
             }
         }
-        else{
+        else if(billOption==="ใบแจ้ง/ใบเสร็จคืนค่าประกันห้อง"){
           const deductionIndex = finalBill.findIndex(item => item.list === 'หัก');
 
           const totalBeforeDeduction = finalBill.slice(0, deductionIndex)
