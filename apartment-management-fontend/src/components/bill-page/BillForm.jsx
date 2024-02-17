@@ -137,7 +137,7 @@ const options = branch
             setCurrentMeter(prev => ({...prev, date: value}));
             break;
         case 'roomPrice':
-            setRoomPrice(value)
+            setRoomPrice(Number(value))
             break;
         default:
             break;
