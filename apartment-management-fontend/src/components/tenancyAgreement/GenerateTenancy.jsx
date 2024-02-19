@@ -109,7 +109,7 @@ const GenerateTenancy = ({roomInfo, pdfContentRef}) => {
             <h3 style={GenerateBillStyles['info-container h3']}>กรุณาโอนเงินเข้า บัญชี นางสาวกนกภรณ์ อักษร</h3>
             <h3 style={GenerateBillStyles['info-container h3']}>{branch?"066-2-25385-5":"683-2-09743-6"}</h3>
             <h3 style={GenerateBillStyles['info-container h3']}>ธนาคาร {branch?"ttb":"กสิกรไทย"}</h3>
-            <h3 style={GenerateBillStyles['info-container h3']}>ชำระไม่เกินวันที่ 5 ของเดือนเกินกำหนดปรับวันละ 100 บาท</h3>
+            
           </div>
         
 
