@@ -28,6 +28,19 @@ const RoomInfoPopup = ({roomData, handleSave, handleCancel, }) => {
       .catch(err => console.error(err))
 
   }
+  const handleClear = () => {
+
+    setFormData(prevState => ({
+      ...prevState,
+      rentalName: '',
+      rentalPhone: '',
+      startDate: '',
+      exitDate: '',
+      totalKey: '',
+      totalDeposit: '',
+      keyExpireDate: ''
+    }));
+  }
 
   const convertDateToISO = (date) => {
     return date ? new Date(date).toISOString().substr(0, 10) : '';
@@ -62,6 +75,7 @@ const RoomInfoPopup = ({roomData, handleSave, handleCancel, }) => {
 
           <button type="submit" className='submitBtn'>บันทึก</button>
           <button type="button" className='cancelBtn' onClick={handleCancel}>ยกเลิก</button>
+          <button type="button" className='cancelBtn' onClick={handleClear}>ลบข้อมูล</button>
         </form>
       </div>
     </div>
