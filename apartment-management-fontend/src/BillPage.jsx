@@ -223,7 +223,6 @@ const BillPage=()=>{
             .catch(err => console.error(err))
         }
         await generatePdf()
-        window.location.reload();
 
     }
 

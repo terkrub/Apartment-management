@@ -23,7 +23,7 @@ const GenerateTenancy = ({roomInfo, pdfContentRef}) => {
 
         <h2 style={GenerateBillStyles['billcontainer h2']}>สัญญาจองห้อง /ใบเสร็จมัดจำ</h2>
         <h3 style={GenerateBillStyles['billcontainer h3']}>{branch?"บ้านลายทองรีสอร์ท":"ลายทองเฮ้าส์"}</h3>
-        <p style={GenerateBillStyles['billcontainer p']}>{branch?"888 หมู่ 15 ซอย ราชพัฒน์ 1 ถนนบ้านสามพร้าว อ.เมือง จ.อุดรธานี 41000":"358 หมู่ 15 ตำบลสามพร้าว อำเภอเมืองอุดรธานี จังหวัดอุดรธานี 41000"} <br/>{branch?"โทร.084-234-2222":"โทร. 0818275520 Email tertarkitty@hotmail.com ID Line tertarkitty"}</p>
+        <p style={GenerateBillStyles['billcontainer p']}>{branch?"888 หมู่ 15 ซอย ราชภัฏ 1 ถนนบ้านสามพร้าว อ.เมือง จ.อุดรธานี 41000":"358 หมู่ 15 ตำบลสามพร้าว อำเภอเมืองอุดรธานี จังหวัดอุดรธานี 41000"} <br/>{branch?"โทร.084-234-2222":"โทร. 0818275520 Email tertarkitty@hotmail.com ID Line tertarkitty"}</p>
 
         <div style={GenerateBillStyles['roomInfo-container']}> 
           <h3 style={GenerateBillStyles['roomInfo-container .title']}>หมายเลขห้อง:</h3>
