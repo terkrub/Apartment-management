@@ -55,7 +55,7 @@ const Sidebar =({active})=>{
                 
             </ul>
             <div className='chnageBranchContainer'>
-                <h3>{branch}</h3>
+                <h3>{branch === "LaithongResort"?"รีสอร์ท บ้านลายทอง":"ลายทองเฮ้าส์"}</h3>
                 <a href="/selectBranch">
                     เปลี่ยนหอ
                 </a>
