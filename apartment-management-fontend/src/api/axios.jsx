@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosConfigured = axios.create({
-    baseURL: 'https://laithong.ngrok.app/'
+    baseURL: 'http://localhost:4500/'
 });
 
 axiosConfigured.interceptors.request.use(config => {

@@ -71,7 +71,7 @@ const GenerateTenancy = ({roomInfo, pdfContentRef}) => {
             <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
           </div>
           <div style={GenerateBillStyles['titleInfo-container']}>
-            <p style={GenerateBillStyles['titleInfo-container .list2']}>ค่าประกันห้อง 5,000 บาท *ต้องเช่าอย่างน้อย 6 เดือน  </p>
+            <p style={GenerateBillStyles['titleInfo-container .list2']}>ค่าประกันห้อง {branch?"7000":"5000"} บาท *ต้องเช่าอย่างน้อย 6 เดือน  </p>
             <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
             <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
             <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
