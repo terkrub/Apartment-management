@@ -7,8 +7,7 @@ const cors = require('cors');
 const authenController = require('./src/controllers/authenController')
 
 
-app.use(cors({credentials: true,
-  origin: true,}));
+
 
 
 // Serve static files
