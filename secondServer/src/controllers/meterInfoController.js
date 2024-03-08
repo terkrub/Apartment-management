@@ -9,6 +9,11 @@ const getMeterInfoController = async(req,res)=>{
     res.json({currentMeterResult: currentMeterInfo, lastMeterResult: lastMeterInfo, roomInfo: roomInfo})
 }
 
+const addMeterInfoAfterClean = async(req,res) =>{
+    await addMeterInfo(req.body.roomNumber, req.body.currentMeter)
+    res.json({status: "Success"})
+}
+
 const addMeterInfoController = async(req,res) =>{
     if(!req.body.lastMeter._id && !req.body.currentMeter._id){
         await addMeterInfo(req.body.roomInfo.roomNumber, req.body.currentMeter)
@@ -51,4 +56,4 @@ const addMeterInfoController = async(req,res) =>{
 
 }
 
-module.exports={getMeterInfoController, addMeterInfoController}
+module.exports={getMeterInfoController, addMeterInfoController, addMeterInfoAfterClean}

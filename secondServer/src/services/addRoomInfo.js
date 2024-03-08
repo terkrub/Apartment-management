@@ -6,46 +6,6 @@ const addRoomInfo = async (roomNum,updatedData) => {
     return room
 }
 
-const addRommtem = async () =>{
-    for(let i = 1;i<=16;i++){
-        const room = new Room({
-            'roomNumber': "A"+i,
-            'rentalName': null,
-            'rentalPhone': null,
-            'totalKey': null,
-            'startDate':null,
-            'totalDeposit':null,
-            'exitDate' : null,
-            'keyExpireDate':null,
-            'available':true,
-            'paid':false,
-            'roomPrice': 3500
-        })
-        console.log(i);
-
-        await room.save()
-    }
-    for(let i = 1;i<=16;i++){
-        const room = new Room({
-            'roomNumber': "B"+i,
-            'rentalName': null,
-            'rentalPhone': null,
-            'totalKey': null,
-            'startDate':null,
-            'totalDeposit':null,
-            'exitDate' : null,
-            'keyExpireDate':null,
-            'available':true,
-            'paid':false,
-            'roomPrice': 3500
-        })
-        console.log(i);
-
-        await room.save()
-    }
-    
-
-}
 
 const getRoomInfo = async (searchParam) => {
     let room;
@@ -70,4 +30,4 @@ const updateRoomPrice = async (roomNum, newPrice) => {
 }
 
 
-module.exports = {addRoomInfo, getRoomInfo, updateRoomPrice, addRommtem}
+module.exports = {addRoomInfo, getRoomInfo, updateRoomPrice}

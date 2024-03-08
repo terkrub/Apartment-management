@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Meter = require('../models/meter')
+const Meter = require('../models/meter');
+const { pool } = require('../db');
 
 const getLastMeterInfo = async (roomNumber) => {
   const now = new Date()
@@ -17,6 +18,22 @@ const getLastMeterInfo = async (roomNumber) => {
   })
 
   return meter
+}
+
+const getDigitalMeter = ()=>{
+  return pool.query('SELECT * FROM `cplcdm`.`unit` ORDER BY `tb_datetime` DESC LIMIT 1').then(([row,fields])=>{
+    return row
+  })
+}
+
+const getLastMeterCLean = async (roomNumber) => {
+  const meter = await Meter.findOne({
+    roomNumber: roomNumber
+  })
+  .sort({ date: -1 })
+  .limit(1);
+
+  return meter;
 }
 
 const getCurrentMeterInfo = async (roomNumber) => {
@@ -56,4 +73,4 @@ const updateMeterInfo = async (updateData) => {
   return meter
 }
 
-module.exports = { getLastMeterInfo, addMeterInfo, getCurrentMeterInfo, updateMeterInfo }
+module.exports = { getLastMeterInfo, addMeterInfo, getCurrentMeterInfo, updateMeterInfo, getDigitalMeter }

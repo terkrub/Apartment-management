@@ -2,16 +2,19 @@ import React, { useState, useEffect } from 'react';
 import './BillFormStyles.css';
 import Dropdown from '../Dropdown.jsx';
 import axios from '../../api/axios.jsx'
+import DigitalMeter from './DigitalMeter.jsx';
 
 const BillForm = ({billOption,setBillOption, generatePdf, handlegenerateBill, otherBill ,setOtherBill, setCurrentMeter, setLastMeter, setRoomInfo, setRoomPrice, roomPrice }) => {
   const branch = localStorage.getItem('branch') === "LaithongResort";
-const options = branch 
-    ? Array.from({ length: 32 }, (_, i) => {
-        let prefix = i < 16 ? 'A' : 'B';
-        let number = i % 16 + 1;
-        return `${prefix}${number}`;
-    })
+
+  const options = branch 
+    ? [
+        ...Array.from({ length: 16 }, (_, i) => `A${i + 1}`),
+        ...Array.from({ length: 16 }, (_, i) => `B${i + 1}`),
+        ...Array.from({ length: 31 }, (_, i) => `C${i + 1}`),
+      ]
     : Array.from({ length: 30 }, (_, i) => (i < 10 ? 101 : i < 20 ? 201 : 301) + (i % 10));
+
 
   const [billListNames, setbillListNames] = useState([])
   const [selectedOption, setSelectedOption] = useState('');
@@ -19,6 +22,8 @@ const options = branch
   const [lastWaterMeter, setLastWaterMeter] = useState('');
   const [currentEletricMeter, setCurrentEletricMeter] = useState('');
   const [currentWaterMeter, setCurrentWaterMeter] = useState('');
+  const [EletricMeter, setEletricMeter] = useState('');
+  const [WaterMeter, setWaterMeter] = useState('');
   const [lastMeterDate, setLastMeterDate] = useState('');
   const [currentMeterDate, setCurrentMeterDate] = useState('');
   const [selectedBill, setSelectedBill] = useState('');
@@ -32,12 +37,18 @@ const options = branch
     else if(billOption==="บิลแรกเข้า"){
       setbillListNames(['ค่าเช่าห้อง'])
     }
+    else if(billOption==="มิตเตอร์หลังทำความสะอาด"){
+      setbillListNames(['มิตเตอร์น้ำ ไฟ'])
+    }
     else{
       setbillListNames(['ค่าน้ำ ค่าไฟ', 'อื่นๆ'])
     }
   },[billOption])
   useEffect(() => {
-    if (!selectedOption) return;  
+    if (!selectedOption) return; 
+    
+    setEletricMeter('')
+    setWaterMeter('')
     
     axios.post('/MeterInfo', { roomNumber: selectedOption }, { 
       headers: {
@@ -110,39 +121,78 @@ const options = branch
     
   const handleChange = (e) => {
     const value = e.target.value;
-    
+    if(selectedBill === 'มิตเตอร์น้ำ ไฟ'){
         switch (e.target.name) {
-        case 'lastElectricMeter':
-            setLastEletricMeter(value);
-            setLastMeter(prev => ({...prev, ElectricMeter: value}));
-            break;
-        case 'lastWaterMeter':
-            setLastWaterMeter(value);
-            setLastMeter(prev => ({...prev, WaterMeter: value}));
-            break;
-        case 'currentEletricMeter':
-            setCurrentEletricMeter(value);
-            setCurrentMeter(prev => ({...prev, ElectricMeter: value}));
-            break;
-        case 'currentWaterMeter':
-            setCurrentWaterMeter(value);
-            setCurrentMeter(prev => ({...prev, WaterMeter: value}));
-            break;
-        case 'previousDate':
-            setLastMeterDate(value);
-            setLastMeter(prev => ({...prev, date: value}));
-            break;
-        case 'currentDate':
-            setCurrentMeterDate(value);
-            setCurrentMeter(prev => ({...prev, date: value}));
-            break;
-        case 'roomPrice':
-            setRoomPrice(Number(value))
-            break;
-        default:
-            break;
+          case 'currentEletricMeter':
+              setEletricMeter(value);
+              break;
+          case 'currentWaterMeter':
+              setWaterMeter(value);
+              break;
+          default:
+              break;
         }
+    }
+    else{
+        switch (e.target.name) {
+          case 'lastElectricMeter':
+              setLastEletricMeter(value);
+              setLastMeter(prev => ({...prev, ElectricMeter: value}));
+              break;
+          case 'lastWaterMeter':
+              setLastWaterMeter(value);
+              setLastMeter(prev => ({...prev, WaterMeter: value}));
+              break;
+          case 'currentEletricMeter':
+              setCurrentEletricMeter(value);
+              setCurrentMeter(prev => ({...prev, ElectricMeter: value}));
+              break;
+          case 'currentWaterMeter':
+              setCurrentWaterMeter(value);
+              setCurrentMeter(prev => ({...prev, WaterMeter: value}));
+              break;
+          case 'previousDate':
+              setLastMeterDate(value);
+              setLastMeter(prev => ({...prev, date: value}));
+              break;
+          case 'currentDate':
+              setCurrentMeterDate(value);
+              setCurrentMeter(prev => ({...prev, date: value}));
+              break;
+          case 'roomPrice':
+              setRoomPrice(Number(value))
+              break;
+          default:
+              break;
+        }
+      }
   };
+
+  const handleSave=()=>{
+    console.log(new Date())
+    console.log(WaterMeter)
+    const roomNumber = "Cleaning:" + selectedOption
+    const currentMeter ={
+      'ElectricMeter': EletricMeter,
+      'WaterMeter': WaterMeter,
+      'data' : new Date()
+    }
+    const token = localStorage.getItem('token');
+    axios.post('/addMeterAfterClean', {roomNumber,currentMeter}, {
+      headers: {
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${token}`
+      },
+      withCredentials: true
+      })
+      .then(res => {
+        setEletricMeter('')
+        setWaterMeter('')
+      })
+      .catch(err => console.error(err))
+
+
+  }
 
   useEffect(() => {
     if (!selectedOption) return; 
@@ -155,7 +205,7 @@ const options = branch
     <div className='meterForm-container'>
       <form onSubmit={handleSubmit}>
       <label>เลือกประเภทบิล:</label>
-        <Dropdown id="dropdown" options={["ใบเเจ้งหนี้/ใบเสร็จรับเงิน","ใบแจ้ง/ใบเสร็จคืนค่าประกันห้อง","บิลแรกเข้า"]} onSelect={handleSelectBillOption} title={"ประเภทบิล"}/>
+        <Dropdown id="dropdown" options={["ใบเเจ้งหนี้/ใบเสร็จรับเงิน","ใบแจ้ง/ใบเสร็จคืนค่าประกันห้อง","บิลแรกเข้า","มิตเตอร์หลังทำความสะอาด"]} onSelect={handleSelectBillOption} title={"ประเภทบิล"}/>
         <input type="hidden" name="selectedOption" value={selectedOption}/>
         {billOption&&
           <>
@@ -190,11 +240,24 @@ const options = branch
 
             <label>มิตเตอร์น้ำปัจจุบัน:</label>
             <input type='number' name='currentWaterMeter' value={currentWaterMeter} onChange={handleChange} required></input>
+            {selectedOption.includes("C") ? <DigitalMeter roomNumber={"tb_kWh"+selectedOption.replace(/\D/g, '')} setCurrentEletricMeter={setCurrentEletricMeter} setCurrentMeter={setCurrentMeter}/>:""}
             <label>มิตเตอร์ไฟปัจจุบัน:</label>
             <input type='number' name='currentEletricMeter' value={currentEletricMeter} onChange={handleChange} required></input>
             <label>วันที่จดบันทึกปัจจุบัน:</label>
             <input type='date' name='currentDate' value={currentMeterDate} onChange={handleChange} placeholder="dd/mm/yyyy" required></input>
             <button className='GenerateBillBtn' onClick={handlegenerateBill}>ออกบิล</button>
+
+          </>
+        )}
+
+        {selectedBill === 'มิตเตอร์น้ำ ไฟ' &&(
+          <>
+            <label>มิตเตอร์น้ำหลังทำความสะอาด:</label>
+            <input type='number' name='currentWaterMeter'value={WaterMeter} onChange={handleChange} required></input>
+            <label>มิตเตอร์ไฟหลังทำความสะอาด:</label>
+            <input type='number' name='currentEletricMeter' value={EletricMeter} onChange={handleChange} required></input>
+
+            <button className='GenerateBillBtn' onClick={handleSave}>บันทึก</button>
 
           </>
         )}

@@ -1,5 +1,5 @@
 const Meter = require('../models/meter')
-const {getLastMeterInfo, addMeterInfo, getCurrentMeterInfo, updateMeterInfo} = require('../services/meterInfoService')
+const {getLastMeterInfo, addMeterInfo, getCurrentMeterInfo, updateMeterInfo, getDigitalMeter} = require('../services/meterInfoService')
 const {getRoomInfo} = require('../services/addRoomInfo')
 
 const getMeterInfoController = async(req,res)=>{
@@ -8,6 +8,15 @@ const getMeterInfoController = async(req,res)=>{
     const currentMeterInfo = await getCurrentMeterInfo(req.body.roomNumber)
     const roomInfo = await getRoomInfo(req.body.roomNumber)
     res.json({currentMeterResult: currentMeterInfo, lastMeterResult: lastMeterInfo, roomInfo: roomInfo})
+}
+
+const addMeterInfoAfterClean = async(req,res) =>{
+    await addMeterInfo(req.body.roomNumber, req.body.currentMeter)
+    res.json({status: "Success"})
+}
+
+const getDigitalMeterController = async(req,res)=>{
+    res.json({data: await getDigitalMeter()})
 }
 
 const addMeterInfoController = async(req,res) =>{
@@ -51,4 +60,4 @@ const addMeterInfoController = async(req,res) =>{
 
 }
 
-module.exports={getMeterInfoController, addMeterInfoController}
+module.exports={getMeterInfoController, addMeterInfoController, addMeterInfoAfterClean, getDigitalMeterController}

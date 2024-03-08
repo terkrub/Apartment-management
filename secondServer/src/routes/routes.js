@@ -3,10 +3,11 @@ const router = express.Router()
 const {addRoomInfoController, getRoomInfoController, updateRoomPrceController} = require('../controllers/addRoomInfoController')
 const authenController = require('../controllers/authenController')
 const loginController = require('../controllers/loginController')
-const { getMeterInfoController, addMeterInfoController } = require('../controllers/meterInfoController')
+const { getMeterInfoController, addMeterInfoController, addMeterInfoAfterClean } = require('../controllers/meterInfoController')
 const authenMiddleware = require('../middleware/authenMiddleware')
 const {addIncomeController, getMonthlyFinance, getSpecificMonthFinance, addExpenseController, deleteIncomeController, deleteExpenseController, updatePaidController} = require('../controllers/financeController')
-const { changeDBMidleware } = require('../db')
+
+
 
 router.post("/Login", loginController)
 router.post("/Authen", authenController)
@@ -14,6 +15,7 @@ router.post("/RoomInfo" ,authenMiddleware,getRoomInfoController)
 router.post("/addInfo",authenMiddleware,addRoomInfoController)
 router.post("/MeterInfo",authenMiddleware, getMeterInfoController)
 router.post("/AddMeter",authenMiddleware, addMeterInfoController)
+router.post("/addMeterAfterClean",authenMiddleware, addMeterInfoAfterClean)
 router.post("/addIncome",authenMiddleware, addIncomeController)
 router.post("/addExpense",authenMiddleware, addExpenseController)
 router.post("/updatePrice",authenMiddleware, updateRoomPrceController)
@@ -22,5 +24,7 @@ router.post("/specific-month-finance",authenMiddleware, getSpecificMonthFinance)
 router.post("/delete-income",authenMiddleware,deleteIncomeController)
 router.post("/delete-expense",authenMiddleware,deleteExpenseController)
 router.post("/update-paid",authenMiddleware,updatePaidController)
+
+
 
 module.exports = router;

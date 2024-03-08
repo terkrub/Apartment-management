@@ -1,7 +1,17 @@
 const mongoose1 = require('mongoose');
 const getconfig = require('./config/config');
-
+const mysql = require('mysql2')
 // Initial connection
 const mongoose = mongoose1.createConnection(getconfig.LaithongResort, { useNewUrlParser: true, useUnifiedTopology: true });
 
-module.exports = mongoose;
+const pool = mysql.createPool({
+    host: getconfig.host,
+    user: getconfig.user,
+    password: getconfig.password,
+    database: getconfig.database,
+    port: 22414
+  });
+  
+module.exports = { mongoose, pool: pool.promise() };
+  
+
