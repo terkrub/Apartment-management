@@ -24,6 +24,5 @@ router.post("/delete-income",authenMiddleware,deleteIncomeController)
 router.post("/delete-expense",authenMiddleware,deleteExpenseController)
 router.post("/update-paid",authenMiddleware,updatePaidController)
 router.post("/digitalMeter",authenMiddleware, getDigitalMeterController)
-router.post("/addRoomTem",addRommtem)
 
 module.exports = router;
