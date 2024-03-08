@@ -9,7 +9,6 @@ const pool = mysql.createPool({
     user: getconfig.user,
     password: getconfig.password,
     database: getconfig.database,
-    port: 22414
   });
   
 module.exports = { mongoose, pool: pool.promise() };
