@@ -175,7 +175,7 @@ const BillForm = ({billOption,setBillOption, generatePdf, handlegenerateBill, ot
     const currentMeter ={
       'ElectricMeter': EletricMeter,
       'WaterMeter': WaterMeter,
-      'data' : new Date()
+      'date' : new Date()
     }
     const token = localStorage.getItem('token');
     axios.post('/addMeterAfterClean', {roomNumber,currentMeter}, {
