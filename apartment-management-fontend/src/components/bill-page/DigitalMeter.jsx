@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "../../api/axios";
 
-const DigitalMeter=({roomNumber, setCurrentEletricMeter, setCurrentMeter})=>{
+const DigitalMeter=({roomNumber, setCurrentEletricMeter, setCurrentMeter, selectedBill})=>{
     const [digitalMeter,setDigitalMeter] = useState()
 
     const getDigitalMeter=()=>{
@@ -29,7 +29,9 @@ const DigitalMeter=({roomNumber, setCurrentEletricMeter, setCurrentMeter})=>{
     const time = digitalMeter.tb_time || "Time not available";
     const handleClick =()=>{
         setCurrentEletricMeter(kWhValue);
-        setCurrentMeter(prev => ({...prev, ElectricMeter: kWhValue}));
+        if(selectedBill !== 'มิตเตอร์น้ำ ไฟ'){
+            setCurrentMeter(prev => ({...prev, ElectricMeter: kWhValue}));
+        }
     }
     
 

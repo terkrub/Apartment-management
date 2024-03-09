@@ -3,6 +3,7 @@ import './BillFormStyles.css';
 import Dropdown from '../Dropdown.jsx';
 import axios from '../../api/axios.jsx'
 import DigitalMeter from './DigitalMeter.jsx';
+import MeterLastClean from './MeterLastClean.jsx';
 
 const BillForm = ({billOption,setBillOption, generatePdf, handlegenerateBill, otherBill ,setOtherBill, setCurrentMeter, setLastMeter, setRoomInfo, setRoomPrice, roomPrice }) => {
   const branch = localStorage.getItem('branch') === "LaithongResort";
@@ -231,6 +232,7 @@ const BillForm = ({billOption,setBillOption, generatePdf, handlegenerateBill, ot
 
         {selectedBill === 'ค่าน้ำ ค่าไฟ' &&(
           <>
+            <MeterLastClean roomNumber={"Cleaning:"+selectedOption} setLastMeter={setLastMeter} setLastEletricMeter={setLastEletricMeter} setLastWaterMeter={setLastWaterMeter} setLastMeterDate={setLastMeterDate}/>
             <label>มิตเตอร์น้ำก่อนหน้า:</label>
             <input type='number' name='lastWaterMeter' value={lastWaterMeter} onChange={handleChange} required></input>
             <label>มิตเตอร์ไฟก่อนหน้า:</label>
@@ -240,7 +242,7 @@ const BillForm = ({billOption,setBillOption, generatePdf, handlegenerateBill, ot
 
             <label>มิตเตอร์น้ำปัจจุบัน:</label>
             <input type='number' name='currentWaterMeter' value={currentWaterMeter} onChange={handleChange} required></input>
-            {selectedOption.includes("C") ? <DigitalMeter roomNumber={"tb_kWh"+selectedOption.replace(/\D/g, '')} setCurrentEletricMeter={setCurrentEletricMeter} setCurrentMeter={setCurrentMeter}/>:""}
+            {selectedOption.includes("C") ? <DigitalMeter roomNumber={"tb_kWh"+selectedOption.replace(/\D/g, '')} setCurrentEletricMeter={setCurrentEletricMeter} setCurrentMeter={setCurrentMeter} selectedBill={selectedBill}/>:""}
             <label>มิตเตอร์ไฟปัจจุบัน:</label>
             <input type='number' name='currentEletricMeter' value={currentEletricMeter} onChange={handleChange} required></input>
             <label>วันที่จดบันทึกปัจจุบัน:</label>
@@ -254,6 +256,7 @@ const BillForm = ({billOption,setBillOption, generatePdf, handlegenerateBill, ot
           <>
             <label>มิตเตอร์น้ำหลังทำความสะอาด:</label>
             <input type='number' name='currentWaterMeter'value={WaterMeter} onChange={handleChange} required></input>
+            {selectedOption.includes("C") ? <DigitalMeter roomNumber={"tb_kWh"+selectedOption.replace(/\D/g, '')} setCurrentEletricMeter={setEletricMeter} selectedBill={selectedBill}/>:""}
             <label>มิตเตอร์ไฟหลังทำความสะอาด:</label>
             <input type='number' name='currentEletricMeter' value={EletricMeter} onChange={handleChange} required></input>
 

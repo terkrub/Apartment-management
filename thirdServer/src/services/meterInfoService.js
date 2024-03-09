@@ -27,12 +27,13 @@ const getDigitalMeter = ()=>{
 }
 
 const getLastMeterCLean = async (roomNumber) => {
+  console.log(roomNumber)
   const meter = await Meter.findOne({
     roomNumber: roomNumber
   })
   .sort({ date: -1 })
   .limit(1);
-
+  console.log(meter)
   return meter;
 }
 
@@ -73,4 +74,4 @@ const updateMeterInfo = async (updateData) => {
   return meter
 }
 
-module.exports = { getLastMeterInfo, addMeterInfo, getCurrentMeterInfo, updateMeterInfo, getDigitalMeter }
+module.exports = { getLastMeterInfo, addMeterInfo, getCurrentMeterInfo, updateMeterInfo, getDigitalMeter , getLastMeterCLean}
