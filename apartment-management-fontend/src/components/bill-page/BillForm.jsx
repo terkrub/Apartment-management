@@ -38,7 +38,7 @@ const BillForm = ({billOption,setBillOption, generatePdf, handlegenerateBill, ot
     else if(billOption==="บิลแรกเข้า"){
       setbillListNames(['ค่าเช่าห้อง'])
     }
-    else if(billOption==="มิตเตอร์หลังทำความสะอาด"){
+    else if(billOption==="มิตเตอร์วันย้ายเข้า"){
       setbillListNames(['มิตเตอร์น้ำ ไฟ'])
     }
     else{
@@ -206,7 +206,7 @@ const BillForm = ({billOption,setBillOption, generatePdf, handlegenerateBill, ot
     <div className='meterForm-container'>
       <form onSubmit={handleSubmit}>
       <label>เลือกประเภทบิล:</label>
-        <Dropdown id="dropdown" options={["ใบเเจ้งหนี้/ใบเสร็จรับเงิน","ใบแจ้ง/ใบเสร็จคืนค่าประกันห้อง","บิลแรกเข้า","มิตเตอร์หลังทำความสะอาด"]} onSelect={handleSelectBillOption} title={"ประเภทบิล"}/>
+        <Dropdown id="dropdown" options={["ใบเเจ้งหนี้/ใบเสร็จรับเงิน","ใบแจ้ง/ใบเสร็จคืนค่าประกันห้อง","บิลแรกเข้า","มิตเตอร์วันย้ายเข้า"]} onSelect={handleSelectBillOption} title={"ประเภทบิล"}/>
         <input type="hidden" name="selectedOption" value={selectedOption}/>
         {billOption&&
           <>
@@ -254,10 +254,10 @@ const BillForm = ({billOption,setBillOption, generatePdf, handlegenerateBill, ot
 
         {selectedBill === 'มิตเตอร์น้ำ ไฟ' &&(
           <>
-            <label>มิตเตอร์น้ำหลังทำความสะอาด:</label>
+            <label>มิตเตอร์น้ำวันย้ายเข้า:</label>
             <input type='number' name='currentWaterMeter'value={WaterMeter} onChange={handleChange} required></input>
             {selectedOption.includes("C") ? <DigitalMeter roomNumber={"tb_kWh"+selectedOption.replace(/\D/g, '')} setCurrentEletricMeter={setEletricMeter} selectedBill={selectedBill}/>:""}
-            <label>มิตเตอร์ไฟหลังทำความสะอาด:</label>
+            <label>มิตเตอร์ไฟวันย้ายเข้า:</label>
             <input type='number' name='currentEletricMeter' value={EletricMeter} onChange={handleChange} required></input>
 
             <button className='GenerateBillBtn' onClick={handleSave}>บันทึก</button>

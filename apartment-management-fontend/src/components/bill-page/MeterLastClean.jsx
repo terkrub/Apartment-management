@@ -35,7 +35,7 @@ const MeterLastClean=({roomNumber, setLastEletricMeter, setLastMeter, setLastWat
         
         {meter&& 
         <div onClick={()=>{handleClick()}} style={{ backgroundColor: '#f0f0f0', cursor: 'pointer'}}>
-            <h4>มิตเตอร์หลังทำความาสะอาด:</h4>
+            <h4>มิตเตอร์วันย้ายเข้า:</h4>
             <p>มิตเตอร์ไฟ: {meter.ElectricMeter}</p>
             <p>มิตเตอร์น้ำ: {meter.WaterMeter}</p>
             <p>วันที่ทำความสะอาด: {meter.date.split("T")[0]}</p>
