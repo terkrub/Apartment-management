@@ -86,9 +86,9 @@ const GenerateBill = ({ billOption ,roomInfo, pdfContentRef, billItems}) => {
         <div style={GenerateBillStyles['paymentInfo-container']}>
           <div style={GenerateBillStyles['info-container']}>
             <h3 style={GenerateBillStyles['info-container h3']}>***หมายเหตุ***</h3>
-            <h3 style={GenerateBillStyles['info-container h3']}>กรุณาโอนเงินเข้า บัญชี นางสาวกนกภรณ์ อักษร</h3>
-            <h3 style={GenerateBillStyles['info-container h3']}>{branch?"066-2-25385-5":"683-2-09743-6"}</h3>
-            <h3 style={GenerateBillStyles['info-container h3']}>ธนาคาร {branch?"ttb":"กสิกรไทย"}</h3>
+            <h3 style={GenerateBillStyles['info-container h3']}>กรุณาโอนเงินเข้า บัญชี {branch?"นายเกรียงศักดิ์ พงศ์ภูมิพิเชฐ":"นางสาวกนกภรณ์ อักษร"}</h3>
+            <h3 style={GenerateBillStyles['info-container h3']}>{branch?"932-2-06893-7":"683-2-09743-6"}</h3>
+            <h3 style={GenerateBillStyles['info-container h3']}>ธนาคาร {branch?"กสิกรไทย":"กสิกรไทย"}</h3>
             {billOption !="บิลแรกเข้า"?<h3 style={GenerateBillStyles['info-container h3']}>ชำระไม่เกินวันที่ 5 ของเดือนเกินกำหนดปรับวันละ 100 บาท</h3>:""}
           </div>
         
