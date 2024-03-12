@@ -189,6 +189,7 @@ const BillForm = ({billOption,setBillOption, generatePdf, handlegenerateBill, ot
       .then(res => {
         setEletricMeter('')
         setWaterMeter('')
+        alert('บันทึกข้อมูลเรียบร้อย')
       })
       .catch(err => console.error(err))
 
