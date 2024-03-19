@@ -12,6 +12,30 @@ const GenerateTenancy = ({roomInfo, pdfContentRef}) => {
   const branch = localStorage.getItem('branch') === "LaithongResort";
 
   today = dd + '/' + mm + '/' + yyyy;
+  let roomRent = 0;
+
+  if (branch) {
+        if (roomInfo && roomInfo.roomNumber) {
+            const roomNumber = roomInfo.roomNumber.toLowerCase();
+          if (roomNumber.includes("c")) {
+                const roomNumberWithoutC = parseInt(roomNumber.replace("c", ''));
+                if (roomNumberWithoutC >= 16 && roomNumberWithoutC <= 27) {
+                    roomRent = 4500;
+                } else {
+                    roomRent = 5000;
+                }
+          }
+          else{
+              roomRent = 3800;
+          }
+      }
+  }else {
+        roomRent = 3500;
+  }
+
+
+  
+
 
 
   return (
@@ -65,7 +89,7 @@ const GenerateTenancy = ({roomInfo, pdfContentRef}) => {
           </div>
 
           <div style={GenerateBillStyles['titleInfo-container']}>
-            <p style={GenerateBillStyles['titleInfo-container .list2']}>ค่าห้องเช่า {branch?"3800":"3500"} บาทต่อเดือน</p>
+            <p style={GenerateBillStyles['titleInfo-container .list2']}>ค่าห้องเช่า {roomRent} บาทต่อเดือน</p>
             <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
             <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
             <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
