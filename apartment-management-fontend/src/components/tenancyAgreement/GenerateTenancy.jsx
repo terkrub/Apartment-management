@@ -22,7 +22,7 @@ const GenerateTenancy = ({roomInfo, pdfContentRef}) => {
                 if (roomNumberWithoutC >= 16 && roomNumberWithoutC <= 27) {
                     roomRent = 4500;
                 } else {
-                    roomRent = 5000;
+                    roomRent = 4500;
                 }
           }
           else{
@@ -95,11 +95,19 @@ const GenerateTenancy = ({roomInfo, pdfContentRef}) => {
             <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
           </div>
           <div style={GenerateBillStyles['titleInfo-container']}>
-            <p style={GenerateBillStyles['titleInfo-container .list2']}>ค่าประกันห้อง {branch?"5000":"5000"} บาท *ต้องเช่าอย่างน้อย 6 เดือน  </p>
+            <p style={GenerateBillStyles['titleInfo-container .list2']}>ค่าประกันห้อง {branch?"5000":"5000"} บาท</p>
             <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
             <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
             <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
           </div>
+
+          <div style={GenerateBillStyles['titleInfo-container']}>
+            <p style={GenerateBillStyles['titleInfo-container .list2']}>*สัญญาเช่าอย่างน้อย 6 เดือน  </p>
+            <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
+            <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
+            <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
+          </div>
+
           <div style={GenerateBillStyles['titleInfo-container']}>
             <p style={GenerateBillStyles['titleInfo-container .list2']}>{branch?"ค่ากุญแจดอกละ 100 บาท ":"ค่าคีย์การ์ดใบละ 100 บาท "}</p>
             <p style={GenerateBillStyles['titleInfo-container .Meter']}></p>
