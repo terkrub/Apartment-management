@@ -243,7 +243,7 @@ const BillForm = ({billOption,setBillOption, generatePdf, handlegenerateBill, ot
 
             <label>มิตเตอร์น้ำปัจจุบัน:</label>
             <input type='number' name='currentWaterMeter' value={currentWaterMeter} onChange={handleChange} required></input>
-            {selectedOption.includes("C") ? <DigitalMeter roomNumber={"tb_kWh"+selectedOption.replace(/\D/g, '')} setCurrentEletricMeter={setCurrentEletricMeter} setCurrentMeter={setCurrentMeter} selectedBill={selectedBill}/>:""}
+            {selectedOption.includes("C") ? <DigitalMeter roomNumber={"tb_kWh"+(parseInt(selectedOption.replace(/\D/g, ''))>10?parseInt(selectedOption.replace(/\D/g, ''))+2:parseInt(selectedOption.replace(/\D/g, '')))} setCurrentEletricMeter={setCurrentEletricMeter} setCurrentMeter={setCurrentMeter} selectedBill={selectedBill}/>:""}
             <label>มิตเตอร์ไฟปัจจุบัน:</label>
             <input type='number' name='currentEletricMeter' value={currentEletricMeter} onChange={handleChange} required></input>
             <label>วันที่จดบันทึกปัจจุบัน:</label>
@@ -257,7 +257,7 @@ const BillForm = ({billOption,setBillOption, generatePdf, handlegenerateBill, ot
           <>
             <label>มิตเตอร์น้ำวันย้ายเข้า:</label>
             <input type='number' name='currentWaterMeter'value={WaterMeter} onChange={handleChange} required></input>
-            {selectedOption.includes("C") ? <DigitalMeter roomNumber={"tb_kWh"+selectedOption.replace(/\D/g, '')} setCurrentEletricMeter={setEletricMeter} selectedBill={selectedBill}/>:""}
+            {selectedOption.includes("C") ? <DigitalMeter roomNumber={"tb_kWh"+(parseInt(selectedOption.replace(/\D/g, ''))>10?parseInt(selectedOption.replace(/\D/g, ''))+2:parseInt(selectedOption.replace(/\D/g, '')))} setCurrentEletricMeter={setEletricMeter} selectedBill={selectedBill}/>:""}
             <label>มิตเตอร์ไฟวันย้ายเข้า:</label>
             <input type='number' name='currentEletricMeter' value={EletricMeter} onChange={handleChange} required></input>
 

@@ -28,6 +28,7 @@ const DigitalMeter=({roomNumber, setCurrentEletricMeter, setCurrentMeter, select
     const date = digitalMeter.tb_date || "Date not available";
     const time = digitalMeter.tb_time || "Time not available";
     const handleClick =()=>{
+        console.log(roomNumber)
         setCurrentEletricMeter(kWhValue);
         if(selectedBill !== 'มิตเตอร์น้ำ ไฟ'){
             setCurrentMeter(prev => ({...prev, ElectricMeter: kWhValue}));
