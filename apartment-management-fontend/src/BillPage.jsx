@@ -21,7 +21,7 @@ const BillPage=()=>{
     useEffect(() => {
       const calculateWaterCharge = () => {
         const waterUsage = currentMeter && lastMeter ? currentMeter.WaterMeter - lastMeter.WaterMeter : 0;
-        return Math.max(50, waterUsage * 18);
+        return Math.max(50, waterUsage * (branch?25:18));
       };
     
       const calculateElectricCharge = () => {
