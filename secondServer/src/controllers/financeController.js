@@ -4,7 +4,9 @@ const { getMonthlyExpenseInfo, getSpecificMonthExpense, addExpenseInfo, deleteEx
 const expense = require('../models/expense');
 
 const addIncomeController = async (req,res) =>{
-    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = req.body.month.toString().padStart(2, '0');
+    const currentDate = new new Date(`${year}-${month}-15`);
     
     if(req.body.title === "roomIncome"){
         const incomeInfo = await getIncomeInfo(req.body.listName,currentDate)
