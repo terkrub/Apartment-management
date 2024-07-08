@@ -120,9 +120,9 @@ const GenerateTenancy = ({roomInfo, pdfContentRef}) => {
           <div style={GenerateBillStyles['info-container']}>
             <h3 style={GenerateBillStyles['info-container h3']}>***หมายเหตุ***</h3>
             <h3 style={GenerateBillStyles['info-container h3']}>***ถ้าเลยกำหนดวันย้ายเข้าผู้จองยังไม่มาทำสัญญาจะถูกยึดเงินประกัน***</h3>
-            <h3 style={GenerateBillStyles['info-container h3']}>กรุณาโอนเงินเข้า บัญชี {branch?"นายเกรียงศักดิ์ พงศ์ภูมิพิเชฐ":"นางสาวกนกภรณ์ อักษร"}</h3>
-            <h3 style={GenerateBillStyles['info-container h3']}>{branch?"932-2-06893-7":"683-2-09743-6"}</h3>
-            <h3 style={GenerateBillStyles['info-container h3']}>ธนาคาร {branch?"กสิกรไทย":"กสิกรไทย"}</h3>
+            <h3 style={GenerateBillStyles['info-container h3']}>กรุณาโอนเงินเข้า บัญชี {branch?"นางสาวกนกภรณ์ อักษร":"นางสาวกนกภรณ์ อักษร"}</h3>
+            <h3 style={GenerateBillStyles['info-container h3']}>{branch?"066-2-25385-5":"683-2-09743-6"}</h3>
+            <h3 style={GenerateBillStyles['info-container h3']}>ธนาคาร {branch?"ttb":"กสิกรไทย"}</h3>
             
           </div>
         
