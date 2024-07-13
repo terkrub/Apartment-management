@@ -27,12 +27,22 @@ const FinanceInfoPopup = ({month, setMonthSelected, fetchFinanceData}) => {
         })
           .then(res => {
             const sortedIncomeData = res.data.incomeData.sort((a, b) => {
-              const numA = extractNumber(a.title);
-              const numB = extractNumber(b.title);
-        
-              if (numA === null) return 1; // Put entries without numbers at the end
-              if (numB === null) return -1;
-              return numA - numB; // Sort by extracted number
+              const extractLetterAndNumber = (title) => {
+                const match = title.match(/([A-Z]+)(\d+)/i);
+                return match ? [match[1], parseInt(match[2], 10)] : [null, null];
+              };
+            
+              const [letterA, numA] = extractLetterAndNumber(a.title);
+              const [letterB, numB] = extractLetterAndNumber(b.title);
+            
+              if (letterA === null) return 1; // Put entries without letters at the end
+              if (letterB === null) return -1;
+              
+              if (letterA !== letterB) {
+                return letterA.localeCompare(letterB); // Sort by letters
+              }
+              
+              return numA - numB; // Sort by numbers
             });
             setIncomeData(sortedIncomeData);
             setExpenseData(res.data.expenseData)

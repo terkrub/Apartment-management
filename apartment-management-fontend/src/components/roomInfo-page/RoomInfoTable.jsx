@@ -112,6 +112,7 @@ const RoomInfoTable = ({data, onDataChange}) => {
                 <th>จำนวนคีย์การ์ด</th>
                 <th>คีย์การ์ดหมดอายุ</th>
                 <th>เงินมัดจำ</th>
+                <th>รหัสสํารอง</th>
                 <th>ตัวเลือก</th>
                 </tr>
             </thead>
@@ -126,6 +127,7 @@ const RoomInfoTable = ({data, onDataChange}) => {
                     <td>{item.totalKey}</td>
                     <td>{item.keyExpireDate ? new Date(item.keyExpireDate).toLocaleDateString('en-GB') :""}</td>
                     <td>{item.totalDeposit}</td>
+                    <td>{item.passCode}</td>
                     <td>
                     <button className='editBtn' onClick={() => handleEdit(item)}>แก้ไข</button>
                     <button className='genrateBtn' onClick={() => handleGenerate(item)}>ออกใบจองห้อง</button>

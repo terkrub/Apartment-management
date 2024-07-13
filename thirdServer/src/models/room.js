@@ -40,6 +40,9 @@ const roomSchema = new Schema({
     },
     roomPrice:{
         type: Number
+    },
+    passCode: {
+        type: String
     }
 
 

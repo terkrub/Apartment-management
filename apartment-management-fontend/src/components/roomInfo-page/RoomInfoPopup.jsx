@@ -38,6 +38,7 @@ const RoomInfoPopup = ({roomData, handleSave, handleCancel, }) => {
       exitDate: '',
       totalKey: '',
       totalDeposit: '',
+      passCode: '',
       keyExpireDate: ''
     }));
   }
@@ -72,6 +73,9 @@ const RoomInfoPopup = ({roomData, handleSave, handleCancel, }) => {
 
           <label>คีย์การ์ดหมดอายุ:</label>
           <input type="date" id="moveOut" name="keyExpireDate" value={convertDateToISO(formData.keyExpireDate)} onChange={handleChange} />
+
+          <label>รหัสสํารอง:</label>
+          <input type="text" id="passCode" name="passCode" value={formData.passCode} onChange={handleChange} />
 
           <button type="submit" className='submitBtn'>บันทึก</button>
           <button type="button" className='cancelBtn' onClick={handleCancel}>ยกเลิก</button>
