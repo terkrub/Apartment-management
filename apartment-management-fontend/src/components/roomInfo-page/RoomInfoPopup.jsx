@@ -39,7 +39,8 @@ const RoomInfoPopup = ({roomData, handleSave, handleCancel, }) => {
       totalKey: '',
       totalDeposit: '',
       passCode: '',
-      keyExpireDate: ''
+      keyExpireDate: '',
+      passCode:formData.passCode
     }));
   }
 

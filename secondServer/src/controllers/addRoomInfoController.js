@@ -10,7 +10,7 @@ const addRoomInfoController = async (req,res) =>{
         totalDeposit: req.body.totalDeposit,
         exitDate: req.body.exitDate,
         keyExpireDate: req.body.keyExpireDate,
-        available: req.body.rentalName == "",
+        available: req.body.rentalName == "" || req.body.rentalName == null,
         passCode: req.body.passCode
     }
 
